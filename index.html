@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- STYLES CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- BOX ICONS CSS-->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Filomena App</title>
+</head>
+
+<body id="body">
+    <div class="l-navbar" id="navbar">
+        <nav class="nav">
+            <div>
+                <a href="#" class="nav__logo">
+                    <img src="assets/icons/logo.svg" alt="" class="nav__logo-icon">
+                    <span class="nav__logo-text">FiloApp</span>
+                </a>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-chevron-right'></i>
+                </div>
+
+                <ul class="nav__list">
+                    <a href="#" class="nav__link active">
+                        <i class='bx bx-table nav__icon'></i>
+                        <span class="nav__text">Inventario</span>
+                    </a>
+                    <a href="#" class="nav__link">
+                        <i class='bx bx-send nav__icon'></i>
+                        <span class="nav__text">Delivery</span>
+                    </a>
+                    <a href="#" class="nav__link">
+                        <i class='bx bxs-dashboard nav__icon'></i>
+                        <span class="nav__text">Dashboard</span>
+                    </a>
+                    <!-- <a href="#" class="nav__link">
+                            <i class='bx bx-heart nav__icon'></i>
+                            <span class="nav__text">Favorites</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class='bx bx-bookmark nav__icon'></i>
+                            <span class="nav__text">Saved</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class='bx bx-message-rounded nav__icon' ></i>
+                            <span class="nav__text">Chat</span>
+                        </a>                  -->
+                </ul>
+            </div>
+            <a href="#" class="nav__link">
+                <i class='bx bx-log-out-circle nav__icon'></i>
+                <span class="nav__text">Ir Tienda</span>
+            </a>
+        </nav>
+    </div>
+    <h1>Inventario</h1>
+    <div id="container tabla" >
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Via pedido</th>
+                    <th scope="col">Nro. Pedido</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Ciudad</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Modo entrega</th>
+                    <th scope="col">Precio Delivery</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Metodo pago</th>
+                    <th scope="col">Estado pago</th>
+                    <th scope="col">Comprobante</th>
+                    <th scope="col">Sticker</th>
+                    <th scope="col">Obs</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Whatsapp</td>
+                    <td>100</td>
+                    <td>11/12/2020</td>
+                    <td>Carlos Gonzalez</td>
+                    <td>0986209871</td>
+                    <td>Cerro Lambare c/Juana de Lara 257</td>
+                    <td>Lambare</td>
+                    <td>gonzalezovelar97@gmail.com</td>
+                    <td>Agenda Clasica Chica de las Flores</td>
+                    <td>120.000</td>
+                    <td>Delivery</td>
+                    <td>12.000</td>
+                    <td>132.000</td>
+                    <td>Transferencia</td>
+                    <td>NO PAGADO</td>
+                    <td>NO</td>
+                    <td>CARLOS</td>
+                    <td>NONE</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Whatsapp</td>
+                    <td>100</td>
+                    <td>11/12/2020</td>
+                    <td>Carlos Gonzalez</td>
+                    <td>0986209871</td>
+                    <td>Cerro Lambare c/Juana de Lara 257</td>
+                    <td>Lambare</td>
+                    <td>gonzalezovelar97@gmail.com</td>
+                    <td>Agenda Clasica Chica de las Flores</td>
+                    <td>120.000</td>
+                    <td>Delivery</td>
+                    <td>12.000</td>
+                    <td>132.000</td>
+                    <td>Transferencia</td>
+                    <td>NO PAGADO</td>
+                    <td>NO</td>
+                    <td>CARLOS</td>
+                    <td>NONE</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Whatsapp</td>
+                    <td>100</td>
+                    <td>11/12/2020</td>
+                    <td>Carlos Gonzalez</td>
+                    <td>0986209871</td>
+                    <td>Cerro Lambare c/Juana de Lara 257</td>
+                    <td>Lambare</td>
+                    <td>gonzalezovelar97@gmail.com</td>
+                    <td>Agenda Clasica Chica de las Flores</td>
+                    <td>120.000</td>
+                    <td>Delivery</td>
+                    <td>12.000</td>
+                    <td>132.000</td>
+                    <td>Transferencia</td>
+                    <td>NO PAGADO</td>
+                    <td>NO</td>
+                    <td>CARLOS</td>
+                    <td>NONE</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<!-- MAIN JS -->
+<script src="./assets/js/index.js"></script>
+
+</html>
