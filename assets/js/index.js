@@ -57,35 +57,43 @@ hoverIcon.forEach( l => l.addEventListener('click', animacion));
 
 // AGREGAR ELEMENTOS PARA TABLA
 
-// let nuevoDiv = document.createElement('div');
-// nuevoDiv.className = 'row';
-// nuevoDiv.id = 'table'
-// nuevoDiv.setAttribute( 'scope', 'Hola mundo' );
-
-// let nuevoNodoText = document.createTextNode( 'Hola World' );
-
-// nuevoDiv.appendChild( nuevoNodoText );
-
-// console.log( nuevoDiv );
-
-
 let columna = document.createElement( 'th' );
-let fila    = document.createElement( 'th' );
-
-fila.setAttribute( 'scope', 'row' );
 columna.setAttribute( 'scope', 'col' );
 
-let textoColumna = document.createTextNode( 'Nueva Columna' );
-let textoFila = document.createTextNode( '4' );
-
-
+let textoColumna = document.createTextNode( 'Columna Agregada' );
 columna.appendChild( textoColumna );
-fila.appendChild( textoFila );
 
 columnaContenedor = document.querySelector( 'tr' );
 columnaContenedor.appendChild( columna );
 
-filaColumna = document.querySelector( 'td' );
 
-console.log(filaColumna);
-filaColumna = document.insertBefore( fila, columnaContenedor);
+
+
+const tr = document.querySelector( '.trRow' );
+let filaRow = document.createElement( 'tr' );
+let fila    = document.createElement( 'th' );
+fila.setAttribute( 'scope', 'row' );
+
+//let textoFila = document.createTextNode( 3 );
+//fila.appendChild( textoFila );
+
+filaRow.appendChild( fila );
+
+const tdRow = document.createElement( 'td' );
+let textoTdRow = document.createTextNode( "Fila creada" );
+tdRow.appendChild( textoTdRow);
+
+tdRow.appendChild( textoTdRow );
+
+
+console.log( filaRow );
+filaRow.appendChild( tdRow )
+
+
+const trRow = document.querySelector( '.trRow' );
+trRow.appendChild( filaRow );
+console.log(trRow);
+
+
+
+
