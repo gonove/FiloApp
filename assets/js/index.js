@@ -34,15 +34,12 @@ const hoverIcon = document.querySelectorAll('.bx');
 function animacion(){
     hoverIcon.forEach( l => l.classList.remove('bx-tada'));
     this.classList.add('bx-tada');
-    
 }
 
 hoverIcon.forEach( l => l.addEventListener('click', animacion));
 
-
 // Crear elemento y renderizar Nombre
 const tablaInventario = document.querySelector( '#tablaInventario' );
-console.log(tablaInventario);
 const renderUser = doc => {
     const tr = `
     <tr>

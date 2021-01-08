@@ -11,7 +11,7 @@
     <!-- BOX ICONS CSS-->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 
-    <title>Filomena App</title>
+    <title>FiloApp</title>
 </head>
 
 <body id="body">
@@ -61,34 +61,48 @@
         </nav>
     </div>
     <div id="container">
-        <header>
-            <h3>Inventario</h3>
-        </header>
-        <div class="table">
-            <table class="table" id="tablaInventario">
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Via pedido</th>
-                    <th scope="col">Nro. Pedido</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Celular</th>
-                    <th scope="col">Direccion</th>
-                    <th scope="col">Ciudad</th>
-                    <th scope="col">Correo</th>
-                    <th scope="col">Producto</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Modo entrega</th>
-                    <th scope="col">Precio Delivery</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Metodo pago</th>
-                    <th scope="col">Estado pago</th>
-                    <th scope="col">Comprobante</th>
-                    <th scope="col">Sticker</th>
-                    <th scope="col">Obs</th>
-                </tr>
+        <div class="inventario">
+            <header>
+                <h1>Inventario</h1>
+                <div id="botones">
+                    <button class="btn btn-1">
+                        <i class='bx bx-plus' ></i> Nuevo registro
+                    </button>
+                    <button class="btn btn-2">
+                        <i class='bx bx-edit-alt' ></i> Editar registro
+                    </button>
+                    <input type="text" class="search-txt" placeholder="Buscar registro">
+                    <a href="#" class="search-btn">
+                        <i class='bx bx-search-alt-2' ></i>
+                    </a>
+                </div>
+            </header>
+            <div class="table">
+                <table class="table" id="tablaInventario">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Via pedido</th>
+                        <th scope="col">Nro. Pedido</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Celular</th>
+                        <th scope="col">Direccion</th>
+                        <th scope="col">Ciudad</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Modo entrega</th>
+                        <th scope="col">Precio Delivery</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Metodo pago</th>
+                        <th scope="col">Estado pago</th>
+                        <th scope="col">Comprobante</th>
+                        <th scope="col">Sticker</th>
+                        <th scope="col">Obs</th>
+                    </tr>
 
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 </body>

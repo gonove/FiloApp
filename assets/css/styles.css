@@ -4,8 +4,8 @@
 /*Variables css*/
 /*===== Colores =====*/
 :root {
-  --first-color: #12192C; 
-  --second-color: #D89498;
+  --first-color: #F08D87; 
+  --second-color: #F8C7CB;
   --white-color: #EDEDED;
 }
 
@@ -48,7 +48,7 @@ body {
 
 h1 {
   margin-left: 0px;
-  
+  color: #D89498;
 
 }
 
@@ -201,3 +201,80 @@ tr:hover {
   background-color:#f5f5f5;
 }
 
+/* BOTONES NUEVOS REGISTROS Y BUSCADOR*/
+
+.btn {
+  overflow: hidden;
+  color: white; 
+  border: none;
+  margin: 5px;
+  padding: 15px;
+  width: 150px;
+  font-family: 'montserrat', sans-serif;
+  /* text-transform: uppercase; */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.btn:hover {
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(149,40,96,1);
+-moz-box-shadow: 0px 0px 10px 0px rgba(149,40,96,1);
+box-shadow: 0px 0px 10px 0px rgba(149,40,96,1);
+
+}
+
+.btn-1 {
+  background-image: linear-gradient( to left, #952860, #F79C99 );
+}
+
+.btn-2 {
+  background-image: linear-gradient( to left, #952860, #F79C99 );
+}
+
+.search-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate( -50%, -50% );
+  background: #2f3640;
+  height: 40px;
+  border-radius: 40px;
+  padding: 10px;
+}
+
+.search-box:hover > .search-txt {
+  width: 240px;
+  padding: 0 6px;
+}
+
+.search-box:hover > .search-btn {
+  background: white;
+}
+
+.search-btn {
+  color: var(--first-color);
+  float: right;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #2f3640;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.search-txt {
+  border: none;
+  background: none;
+  outline: none;
+  float: left;
+  padding: 0;
+  color: white;
+  font-size: 16px;
+  transition: 0.4s;
+  line-height: 40px;
+  width: 0px;
+
+}
