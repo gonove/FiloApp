@@ -1,3 +1,21 @@
+// Mostrar Modal
+const addModal = document.querySelector( '.add-modal' );
+
+const btnAdd = document.querySelector( '.btn-modal' );
+
+// Click Nuevo
+btnAdd.addEventListener( 'click', () => {
+    addModal.classList.add( 'modal-show' );
+});
+
+// Click fuera modal
+window.addEventListener( 'click', e => {
+    if ( e.target === addModal) {
+        addModal.classList.remove( 'modal-show' );
+    }
+})
+
+
 // Mostrar menu
 const showMenu = (toggleId, navbarId,bodyId) =>{
     const toggle = document.getElementById(toggleId),
@@ -39,15 +57,29 @@ function animacion(){
 hoverIcon.forEach( l => l.addEventListener('click', animacion));
 
 // Crear elemento y renderizar Nombre
+
 const tablaInventario = document.querySelector( '#tablaInventario' );
 const renderUser = doc => {
     const tr = `
     <tr>
+        <td>${doc.data().ViaPedido}</td>
+        <td>${doc.data().NroPedido}</td>
+        <td>${doc.data().Fecha}</td>
         <td>${doc.data().Nombre}</td>
-        <td>${doc.data().Ciudad}</td>
-        <td>${doc.data().Direccion}</td>
         <td>${doc.data().Celular}</td>
-        <td>${doc.data().correo}</td>
+        <td>${doc.data().Direccion}</td>
+        <td>${doc.data().Ciudad}</td>
+        <td>${doc.data().Correo}</td>
+        <td>${doc.data().Producto}</td>
+        <td>${doc.data().Precio}</td>
+        <td>${doc.data().ModoEntrega}</td>
+        <td>${doc.data().PrecioDelivery}</td>
+        <td>${doc.data().Total}</td>
+        <td>${doc.data().MetodoPago}</td>
+        <td>${doc.data().EstadoPago}</td>
+        <td>${doc.data().Comprobante}</td>
+        <td>${doc.data().Sticker}</td>
+        <td>${doc.data().Obs}</td>
     </tr>
     `;
     tablaInventario.insertAdjacentHTML( 'beforeend', tr );
@@ -56,7 +88,7 @@ const renderUser = doc => {
 
 // Obtener usuarios
 
-db.collection( 'Nombre' ).get().then( querySnapshot => {
+db.collection( 'Inventario' ).get().then( querySnapshot => {
     querySnapshot.forEach( doc => {
         renderUser(doc);
     })
