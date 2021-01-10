@@ -52,6 +52,9 @@ function animacion(){
 hoverIcon.forEach( l => l.addEventListener('click', animacion));
 // END
 
+
+
+
 // Mostrar Modal
 const addModal = document.querySelector( '.add-modal' );
 const addModalForm = document.querySelector( '.add-modal .form')
@@ -70,17 +73,13 @@ window.addEventListener( 'click', e => {
     }
 })
 
-const editModal = document.querySelector( '.edit-modal' );
-const editModalForm = document.querySelector( '.edit-modal .form' );
-
-
 // Crear elemento y renderizar Nombre
 
 const tablaInventario = document.querySelector( '#tablaInventario' );
 
 const renderUser = doc => {
     const tr = `
-    <tr class="row${trTabla.length}">
+    <tr class="row${trTabla.length} "onclick='editar(this)'>
         <td>${doc.data().ViaPedido}</td>
         <td>${doc.data().NroPedido}</td>
         <td>${doc.data().Fecha}</td>
@@ -109,6 +108,17 @@ const trTabla = document.getElementsByTagName( 'tr' )
 setTimeout(() => {
     trTabla.length;
 }, 2000);
+
+// EDIT MODAL
+
+const editModal = document.querySelector( '.edit-modal' );
+const editModalForm = document.querySelector( '.edit-modal .form' ); //Para agregar usuarios
+
+const editar = () => {
+    editModal.classList.add( 'modal-show' );
+
+}
+
 
 
 // Obtener usuarios
