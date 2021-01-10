@@ -1,5 +1,6 @@
 // Mostrar Modal
 const addModal = document.querySelector( '.add-modal' );
+const addModalForm = document.querySelector( '.add-modal .form')
 
 const btnAdd = document.querySelector( '.btn-modal' );
 
@@ -17,7 +18,7 @@ window.addEventListener( 'click', e => {
 
 
 // Mostrar menu
-const showMenu = (toggleId, navbarId,bodyId) =>{
+const showMenu = ( toggleId, navbarId, bodyId ) =>{
     const toggle = document.getElementById(toggleId),
     navbar = document.getElementById(navbarId),
     bodypadding = document.getElementById(bodyId)
@@ -59,9 +60,10 @@ hoverIcon.forEach( l => l.addEventListener('click', animacion));
 // Crear elemento y renderizar Nombre
 
 const tablaInventario = document.querySelector( '#tablaInventario' );
+
 const renderUser = doc => {
     const tr = `
-    <tr>
+    <tr class="row${trTabla.length}">
         <td>${doc.data().ViaPedido}</td>
         <td>${doc.data().NroPedido}</td>
         <td>${doc.data().Fecha}</td>
@@ -85,6 +87,12 @@ const renderUser = doc => {
     tablaInventario.insertAdjacentHTML( 'beforeend', tr );
 }
 
+// contar la cantidad de tr
+const trTabla = document.getElementsByTagName( 'tr' )
+setTimeout(() => {
+    trTabla.length;
+}, 2000);
+
 
 // Obtener usuarios
 
@@ -94,5 +102,15 @@ db.collection( 'Inventario' ).get().then( querySnapshot => {
     })
 })
 
+// Click cargar
 
-
+addModalForm.addEventListener( 'submit', e => {
+    e.preventDefault();
+    // console.log( addModalForm.Nombre.value );
+    db.collection( 'Inventario' ).add( {
+        ViaPedido: addModalForm.ViaPedido.value,
+        NroPedido: addModalForm.NroPedido.value,
+        Fecha: addModalForm.Fecha.value,
+        Nombre: addModalForm.Nombre.value,
+    } ) 
+})
