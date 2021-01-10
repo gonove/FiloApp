@@ -1,21 +1,15 @@
-// Mostrar Modal
-const addModal = document.querySelector( '.add-modal' );
-const addModalForm = document.querySelector( '.add-modal .form')
-
-const btnAdd = document.querySelector( '.btn-modal' );
-
-// Click Nuevo
-btnAdd.addEventListener( 'click', () => {
-    addModal.classList.add( 'modal-show' );
-});
-
-// Click fuera modal
-window.addEventListener( 'click', e => {
-    if ( e.target === addModal) {
-        addModal.classList.remove( 'modal-show' );
-    }
-})
-
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyDvaucJj0cRUZOveAnIoJEKAwy06xrLeEg",
+    authDomain: "crudfiloapp.firebaseapp.com",
+    projectId: "crudfiloapp",
+    storageBucket: "crudfiloapp.appspot.com",
+    messagingSenderId: "674713923526",
+    appId: "1:674713923526:web:7a1f89272d300c7bf84cc7"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 // Mostrar menu
 const showMenu = ( toggleId, navbarId, bodyId ) =>{
@@ -56,6 +50,29 @@ function animacion(){
 }
 
 hoverIcon.forEach( l => l.addEventListener('click', animacion));
+// END
+
+// Mostrar Modal
+const addModal = document.querySelector( '.add-modal' );
+const addModalForm = document.querySelector( '.add-modal .form')
+
+const btnAdd = document.querySelector( '.btn-add' );
+
+// Click Nuevo
+btnAdd.addEventListener( 'click', () => {
+    addModal.classList.add( 'modal-show' );
+});
+
+// Click fuera modal
+window.addEventListener( 'click', e => {
+    if ( e.target === addModal) {
+        addModal.classList.remove( 'modal-show' );
+    }
+})
+
+const editModal = document.querySelector( '.edit-modal' );
+const editModalForm = document.querySelector( '.edit-modal .form' );
+
 
 // Crear elemento y renderizar Nombre
 
@@ -114,3 +131,5 @@ addModalForm.addEventListener( 'submit', e => {
         Nombre: addModalForm.Nombre.value,
     } ) 
 })
+
+
