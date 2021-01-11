@@ -119,7 +119,7 @@ const renderUser = doc => {
     } );
 }
 
-// Click CARGAR Nuevo Registro
+// CLICK CARGAR NUEVO REGISTRO
 addModalForm.addEventListener( 'submit', e => {
     e.preventDefault();
     db.collection( 'Inventario' ).add( {
