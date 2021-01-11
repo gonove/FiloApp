@@ -55,7 +55,7 @@ hoverIcon.forEach( l => l.addEventListener('click', animacion));
 
 
 // ------------------------------------------------------------------------------ //
-
+let id;
 const modalWrapper = document.querySelector( '.modal-wrapper' );
 
 // MODAL NUEVO REGISTRO
@@ -82,8 +82,8 @@ const tablaInventario = document.querySelector( '#tablaInventario' );
 
 const renderUser = doc => {
     const tr = `
-    <tr data-id='${doc.id}'>
-        <td onclick='abrirEditar(this)'>${doc.data().ViaPedido}</td>
+    <tr>
+        <td onclick='abrirEditar(this)' data-id='${doc.id}'>${doc.data().ViaPedido}</td>
         <td onclick='abrirEditar(this)'>${doc.data().NroPedido}</td>
         <td onclick='abrirEditar(this)'>${doc.data().Fecha}</td>
         <td onclick='abrirEditar(this)'>${doc.data().Nombre}</td>
@@ -105,20 +105,36 @@ const renderUser = doc => {
             <button class="btn btn-delete">Eliminar</button>
         </td>
     </tr>`;
-    
     tablaInventario.insertAdjacentHTML( 'beforeend', tr );
 
+    id = doc.id;
+    // Boton Editar
+    const btnEdit = document.querySelector( `[data-id='${doc.id}'] .btn-edit` )
+
+    btnEdit.addEventListener( 'click', () => {
+        
+        editModalForm.Nombre.value      = doc.data().Nombre
+        editModalForm.ViaPedido.value   = doc.data().ViaPedido
+        editModalForm.Celular.value     = doc.data().Celular
+        editModalForm.Correo.value      = doc.data().Correo
+        editModalForm.MetodoPago.value  = doc.data().MetodoPago
+
+
+    });
+
+
+    // Boton Eliminar
     const btnDelete = document.querySelector( `[data-id='${doc.id}'] .btn-delete` );
-    
     btnDelete.addEventListener( 'click', () => {
         db.collection( 'Inventario' ).doc( `${doc.id}` ).delete().then( () => {
-            console.log('<3');
+            console.log('Agregar refresh o algo<3');
         }).catch( err => {
-            console.log('</3');
+            console.log('Agregar algun modal de fallo o algo </3');
         })
-    } );
-}
+    });
 
+}
+console.log(id);
 // CLICK CARGAR NUEVO REGISTRO
 addModalForm.addEventListener( 'submit', e => {
     e.preventDefault();
@@ -137,14 +153,9 @@ addModalForm.addEventListener( 'submit', e => {
 const editModal = document.querySelector( '.edit-modal' );
 const editModalForm = document.querySelector( '.edit-modal .form' ); //Para agregar usuarios
 
-const trDelete = `
-<td>
-    <button class="btn btn-guardar">Guardar</button>
-</td>
-`
+
 
 const abrirEditar = () => {
-    editModalForm.insertAdjacentHTML( 'beforeend', trDelete );
     editModal.classList.add( 'modal-show' ); 
 }
 
@@ -153,8 +164,6 @@ window.addEventListener( 'click', e => {
     if ( e.target === editModal) {
         editModal.classList.remove( 'modal-show' );
         editModalForm.reset();
-        editModalForm.removeChild( editModalForm.lastElementChild );
-        editModalForm.removeChild( editModalForm.lastElementChild );
     }
 })
 

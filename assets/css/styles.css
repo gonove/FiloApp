@@ -4,9 +4,13 @@
 /*Variables css*/
 /*===== Colores =====*/
 :root {
-  --first-color: #F08D87; 
+  --first-color: #050505; 
   --second-color: #F8C7CB;
   --white-color: #EDEDED;
+
+  /* --first-color: #F08D87; 
+  --second-color: #F8C7CB;
+  --white-color: #EDEDED; */
 }
 
 /*===== Fuente y tipografia =====*/
