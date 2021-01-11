@@ -11,6 +11,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+// INICIO PARTE GRAFICA
 // Mostrar menu
 const showMenu = ( toggleId, navbarId, bodyId ) =>{
     const toggle = document.getElementById(toggleId),
@@ -50,76 +51,112 @@ function animacion(){
 }
 
 hoverIcon.forEach( l => l.addEventListener('click', animacion));
-// END
+// FIN PARTE GRAFICA
 
 
+// ------------------------------------------------------------------------------ //
 
+const modalWrapper = document.querySelector( '.modal-wrapper' );
 
-// Mostrar Modal
+// MODAL NUEVO REGISTRO
 const addModal = document.querySelector( '.add-modal' );
 const addModalForm = document.querySelector( '.add-modal .form')
 
 const btnAdd = document.querySelector( '.btn-add' );
 
-// Click Nuevo
+// Click Nuevo Registro
 btnAdd.addEventListener( 'click', () => {
     addModal.classList.add( 'modal-show' );
 });
 
-// Click fuera modal
+// QUITAR MODAL DE LA PANTALLA
 window.addEventListener( 'click', e => {
     if ( e.target === addModal) {
         addModal.classList.remove( 'modal-show' );
+        addModalForm.reset();
     }
 })
 
 // Crear elemento y renderizar Nombre
-
 const tablaInventario = document.querySelector( '#tablaInventario' );
 
 const renderUser = doc => {
     const tr = `
-    <tr class="row${trTabla.length} "onclick='editar(this)'>
-        <td>${doc.data().ViaPedido}</td>
-        <td>${doc.data().NroPedido}</td>
-        <td>${doc.data().Fecha}</td>
-        <td>${doc.data().Nombre}</td>
-        <td>${doc.data().Celular}</td>
-        <td>${doc.data().Direccion}</td>
-        <td>${doc.data().Ciudad}</td>
-        <td>${doc.data().Correo}</td>
-        <td>${doc.data().Producto}</td>
-        <td>${doc.data().Precio}</td>
-        <td>${doc.data().ModoEntrega}</td>
-        <td>${doc.data().PrecioDelivery}</td>
-        <td>${doc.data().Total}</td>
-        <td>${doc.data().MetodoPago}</td>
-        <td>${doc.data().EstadoPago}</td>
-        <td>${doc.data().Comprobante}</td>
-        <td>${doc.data().Sticker}</td>
-        <td>${doc.data().Obs}</td>
-    </tr>
-    `;
+    <tr data-id='${doc.id}'>
+        <td onclick='abrirEditar(this)'>${doc.data().ViaPedido}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().NroPedido}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().Fecha}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().Nombre}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().Celular}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().Direccion}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().Ciudad}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().Correo}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().Producto}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().Precio}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().ModoEntrega}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().PrecioDelivery}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().Total}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().MetodoPago}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().EstadoPago}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().Comprobante}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().Sticker}</td>
+        <td onclick='abrirEditar(this)'>${doc.data().Obs}</td>
+        <td>
+            <button class="btn btn-delete">Eliminar</button>
+        </td>
+    </tr>`;
+    
     tablaInventario.insertAdjacentHTML( 'beforeend', tr );
+
+    const btnDelete = document.querySelector( `[data-id='${doc.id}'] .btn-delete` );
+    
+    btnDelete.addEventListener( 'click', () => {
+        db.collection( 'Inventario' ).doc( `${doc.id}` ).delete().then( () => {
+            console.log('<3');
+        }).catch( err => {
+            console.log('</3');
+        })
+    } );
 }
 
-// contar la cantidad de tr
-const trTabla = document.getElementsByTagName( 'tr' )
-setTimeout(() => {
-    trTabla.length;
-}, 2000);
+// Click CARGAR Nuevo Registro
+addModalForm.addEventListener( 'submit', e => {
+    e.preventDefault();
+    db.collection( 'Inventario' ).add( {
+        Nombre: addModalForm.Nombre.value,
+        ViaPedido: addModalForm.ViaPedido.value,
+        Celular: addModalForm.Celular.value,
+        Correo: addModalForm.Correo.value,
+        MetodoPago: addModalForm.MetodoPago.value,
+    } );
+    modalWrapper.classList.remove( 'modal-show' );
+})
 
-// EDIT MODAL
+// MODAL EDITAR REGISTRO
 
 const editModal = document.querySelector( '.edit-modal' );
 const editModalForm = document.querySelector( '.edit-modal .form' ); //Para agregar usuarios
 
-const editar = () => {
-    editModal.classList.add( 'modal-show' );
+const trDelete = `
+<td>
+    <button class="btn btn-guardar">Guardar</button>
+</td>
+`
 
+const abrirEditar = () => {
+    editModalForm.insertAdjacentHTML( 'beforeend', trDelete );
+    editModal.classList.add( 'modal-show' ); 
 }
 
-
+// QUITAR MODAL EDITAR REGISTRO
+window.addEventListener( 'click', e => {
+    if ( e.target === editModal) {
+        editModal.classList.remove( 'modal-show' );
+        editModalForm.reset();
+        editModalForm.removeChild( editModalForm.lastElementChild );
+        editModalForm.removeChild( editModalForm.lastElementChild );
+    }
+})
 
 // Obtener usuarios
 
@@ -128,18 +165,4 @@ db.collection( 'Inventario' ).get().then( querySnapshot => {
         renderUser(doc);
     })
 })
-
-// Click cargar
-
-addModalForm.addEventListener( 'submit', e => {
-    e.preventDefault();
-    // console.log( addModalForm.Nombre.value );
-    db.collection( 'Inventario' ).add( {
-        ViaPedido: addModalForm.ViaPedido.value,
-        NroPedido: addModalForm.NroPedido.value,
-        Fecha: addModalForm.Fecha.value,
-        Nombre: addModalForm.Nombre.value,
-    } ) 
-})
-
 

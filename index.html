@@ -88,7 +88,7 @@
 
         <div class="tabla">
             <table class="table" id="tablaInventario">
-                <tr>
+                <tr id="col">
                     <!-- <th scope="col">ID</th> -->
                     <th scope="col">Via pedido</th>
                     <th scope="col">Nro. Pedido</th>
@@ -108,28 +108,31 @@
                     <th scope="col">Comprobante</th>
                     <th scope="col">Sticker</th>
                     <th scope="col">Obs</th>
+                    <th scope="col">Acciones</th>
                 </tr>
 
             </table>
-            <!-- Add Modal -->
-            <div class="add-modal modal-wrapper">
-                <div class="modal">
-                    <div class="modal-header">
-                        <h1>Nuevo registro</h1>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form" autocomplete="off">
-                            <input type="text" name="Nombre" placeholder="Nombre">
-                            <input type="text" name="ViaPedido" placeholder="Via pedido">
-                            <input type="number" name="Celular" placeholder="Telefono">
-                            <input type="email" name="Correo" placeholder="Correo">
-                            <input type="number" name="MetodoPago" placeholder="Metodo Pago">
-                            <button class="btn btn-modal">Cargar</button>
-                        </form>/;
-                    </div>
+        </div>
+
+        <!-- Add Modal -->
+        <div class="add-modal modal-wrapper">
+            <div class="modal">
+                <div class="modal-header">
+                    <h1>Nuevo registro</h1>
+                </div>
+                <div class="modal-body">
+                    <form class="form">
+                        <input type="text" name="Nombre" placeholder="Nombre">
+                        <input type="text" name="ViaPedido" placeholder="Via pedido">
+                        <input type="number" name="Celular" placeholder="Telefono">
+                        <input type="email" name="Correo" placeholder="Correo">
+                        <input type="text" name="MetodoPago" placeholder="Metodo Pago">
+                        <button class="btn btn-modal">Cargar</button>
+                    </form>
                 </div>
             </div>
         </div>
+
         <!-- Edit Modal -->
         <div class="edit-modal modal-wrapper">
             <div class="modal">
@@ -137,13 +140,32 @@
                     <h3>Editar registro</h3>
                 </div>
                 <div class="modal-body">
-                    <form class="form" autocomplete="off">
-                        <input type="text" name="firstName" placeholder="First Name">
-                        <input type="text" name="lastName" placeholder="Last Name">
-                        <input type="number" name="phone" placeholder="Phone">
-                        <input type="email" name="email" placeholder="Email">
-                        <button class="btn btn-modal">Guardar</button>
+                    <form class="form">
+                        <input type="text" name="Nombre" placeholder="Nombre">
+                        <input type="text" name="ViaPedido" placeholder="Via pedido">
+                        <input type="number" name="Celular" placeholder="Telefono">
+                        <input type="email" name="Correo" placeholder="Correo">
+                        <input type="text" name="MetodoPago" placeholder="Metodo Pago">
+
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div class="success-modal modal-wrapper">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Registro editado!</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Modal -->
+        <div class="success-modal modal-wrapper">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Registro eliminado!</h3>
                 </div>
             </div>
         </div>
