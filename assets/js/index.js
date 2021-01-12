@@ -199,5 +199,11 @@ db.collection( 'Inventario' ).onSnapshot( snapshot => {
             let tbody = tr.parentElement;
             tablaInventario.removeChild( tbody );
         }
+        if ( change.type === 'modified' ) {
+            let tr = document.querySelector( `#${change.doc.id}` );
+            let tbody = tr.parentElement;
+            tablaInventario.removeChild( tbody );
+            renderUser( change.doc );
+        }
     } )
 } )
