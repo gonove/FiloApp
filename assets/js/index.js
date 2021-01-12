@@ -80,7 +80,7 @@ window.addEventListener( 'click', e => {
 // Crear elemento y renderizar Nombre
 const tablaInventario = document.querySelector( '#tablaInventario' );
 
-const renderUser = (doc) => {
+const renderUser = ( doc ) => {
     const tr = `
       <tr id='${doc.id}'>
           <td onclick='abrirEditar()' id='${doc.id}'>${doc.data().ViaPedido}</td>
@@ -181,9 +181,23 @@ editModalForm.addEventListener( 'submit', e => {
 
 // Obtener usuarios
 
-db.collection( 'Inventario' ).get().then( querySnapshot => {
-    querySnapshot.forEach( doc => {
-        renderUser(doc);
-    })
-})
+// db.collection( 'Inventario' ).get().then( querySnapshot => {
+//     querySnapshot.forEach( doc => {
+//         renderUser(doc);
+//     })
+// })
 
+// REALTIME LISTENER
+
+db.collection( 'Inventario' ).onSnapshot( snapshot => {
+    snapshot.docChanges().forEach( change => {
+        if ( change.type === 'added') {
+            renderUser( change.doc );
+        }
+        if ( change.type === 'removed' ) {
+            let tr = document.querySelector( `#${change.doc.id}` );
+            let tbody = tr.parentElement;
+            tablaInventario.removeChild( tbody );
+        }
+    } )
+} )
