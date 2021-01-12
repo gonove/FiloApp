@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 /*===== VARIABLES CSS Y SASS =====*/
 /*Varibles sass*/
 /*Variables css*/
@@ -15,7 +16,7 @@
 
 /*===== Fuente y tipografia =====*/
 :root {
-  --body-font: 'Quicksand', sans-serif;
+  --body-font: 'Rubik', sans-serif;
   --small-font-size: 0.875rem;
 }
 
@@ -324,7 +325,7 @@ box-shadow: 0px 0px 10px 0px rgba(149,40,96,1);
   position: relative;
   background: #fff;
   text-align: center;
-  width: 25rem;
+  width: 40rem;
   margin: 5rem auto;
   -webkit-box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
@@ -359,7 +360,7 @@ box-shadow: 0px 0px 10px 0px rgba(149,40,96,1);
 }
 
 input {
-  width: 100%;
-  height: 2.2rem;
-  margin-bottom: 1rem;
+  width: 49%;
+  height: 2.5rem;
+  margin-bottom: 1.5rem;
 }

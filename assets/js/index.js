@@ -7,8 +7,9 @@ var firebaseConfig = {
     messagingSenderId: "674713923526",
     appId: "1:674713923526:web:7a1f89272d300c7bf84cc7"
 };
+
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp( firebaseConfig );
 const db = firebase.firestore();
 
 // INICIO PARTE GRAFICA
@@ -113,11 +114,24 @@ const renderUser = ( doc ) => {
     const btnEdit = document.querySelector(`#${doc.id}`);
 
     btnEdit.addEventListener("click", () => {
-        editModalForm.Nombre.value = doc.data().Nombre;
-        editModalForm.ViaPedido.value = doc.data().ViaPedido;
-        editModalForm.Celular.value = doc.data().Celular;
-        editModalForm.Correo.value = doc.data().Correo;
-        editModalForm.MetodoPago.value = doc.data().MetodoPago;
+
+        editModalForm.ViaPedido.value = doc.data().ViaPedido
+        editModalForm.NroPedido.value = doc.data().NroPedido
+        editModalForm.Fecha.value = doc.data().Fecha
+        editModalForm.Nombre.value = doc.data().Nombre
+        editModalForm.Celular.value = doc.data().Celular
+        editModalForm.Direccion.value = doc.data().Direccion
+        editModalForm.Ciudad.value = doc.data().Ciudad
+        editModalForm.Correo.value = doc.data().Correo
+        editModalForm.Producto.value = doc.data().Producto
+        editModalForm.Precio.value = doc.data().Precio
+        editModalForm.ModoEntrega.value = doc.data().ModoEntrega
+        editModalForm.PrecioDelivery.value = doc.data().PrecioDelivery
+        editModalForm.ModoPago.value = doc.data().ModoPago
+        editModalForm.EstadoPago.value = doc.data().EstadoPago
+        editModalForm.Comprobante.value = doc.data().Comprobante
+        editModalForm.Sticker.value = doc.data().Sticker
+        editModalForm.Obs.value = doc.data().Obs
   });
 
     // Boton eliminar
@@ -157,11 +171,23 @@ window.addEventListener( 'click', e => {
 addModalForm.addEventListener( 'submit', e => {
     e.preventDefault();
     db.collection( 'Inventario' ).add( {
-        Nombre: addModalForm.Nombre.value,
         ViaPedido: addModalForm.ViaPedido.value,
+        NroPedido: addModalForm.NroPedido.value,
+        Fecha: addModalForm.Fecha.value,
+        Nombre: addModalForm.Nombre.value,
         Celular: addModalForm.Celular.value,
+        Direccion: addModalForm.Direccion.value,
+        Ciudad: addModalForm.Ciudad.value,
         Correo: addModalForm.Correo.value,
-        MetodoPago: addModalForm.MetodoPago.value,
+        Producto: addModalForm.Producto.value,
+        Precio: addModalForm.Precio.value,
+        ModoEntrega: addModalForm.ModoEntrega.value,
+        PrecioDelivery: addModalForm.PrecioDelivery.value,
+        ModoPago: addModalForm.ModoPago.value,
+        EstadoPago: addModalForm.EstadoPago.value,
+        Comprobante: addModalForm.Comprobante.value,
+        Sticker: addModalForm.Sticker.value,
+        Obs: addModalForm.Obs.value,
     } );
     modalWrapper.classList.remove( 'modal-show' );
 })
