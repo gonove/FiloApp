@@ -175,59 +175,28 @@ nav #botones {
 }
 
 #botones ul {
-  float: left;
   margin-right: 20px;
 }
 
 #botones ul li {
-  display: inline-block;
+  display: block;
+  float: left;
   line-height: 80px;
   margin: 0 5px;
 }
 
 .search-box {
-  /* border: 3px solid #32e17c;
-  height: 40px;
-  width: 300px;
-  border-radius: 50px;
-  padding: 0px 10px;
-  border: none; */
+  position: inherit;
+  right: 10px;
+  left: 10px;
 
-  /* display: inline-block;
-
-  top: 50%;
-  left: 50%;
-  transform: translate( -50%, -50% );
-  background: red;
-  height: 40px;
-  border-radius: 40px;
-  padding: 10px; */
-
-}
-
-.search-btn {
-  display: block;
-  color: rgb(0, 0, 0);
-  float: right;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  /* display: flex; */
 }
 
 .search-txt {
+  margin: 0;
+  width: 170px;
   border: none;
-  /* background: none; */
-  outline: none;
-  /* float: left; */
-  padding: 10px;
-  color: rgb(83, 83, 83);
-  font-size: 16px;
-  transition: 0.4s;
-  line-height: 40px;
-  width: 240px;
-  top: 10px;
-
+  border-radius: 5px;
 }
 
 /*Show menu*/
@@ -350,7 +319,7 @@ box-shadow: 0px 0px 10px 0px rgba(149,40,96,1);
 .modal-header {
   margin-bottom: 1rem;
   background: #f8fafb;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .modal-body {

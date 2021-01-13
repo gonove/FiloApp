@@ -8,6 +8,7 @@ var firebaseConfig = {
     appId: "1:674713923526:web:7a1f89272d300c7bf84cc7"
 };
 
+
 // Initialize Firebase
 firebase.initializeApp( firebaseConfig );
 const db = firebase.firestore();
@@ -81,7 +82,12 @@ window.addEventListener( 'click', e => {
 // Crear elemento y renderizar Nombre
 const tablaInventario = document.querySelector( '#tablaInventario' );
 
+
+
 const renderUser = ( doc ) => {
+    
+    const total = parseInt( doc.data().PrecioDelivery ) + parseInt( doc.data().Precio );
+    
     const tr = `
       <tr id='${doc.id}'>
           <td onclick='abrirEditar()' id='${doc.id}'>${doc.data().ViaPedido}</td>
@@ -96,7 +102,7 @@ const renderUser = ( doc ) => {
           <td onclick='abrirEditar()'>${doc.data().Precio}</td>
           <td onclick='abrirEditar()'>${doc.data().ModoEntrega}</td>
           <td onclick='abrirEditar()'>${doc.data().PrecioDelivery}</td>
-          <td onclick='abrirEditar()'>${doc.data().Total}</td>
+          <td onclick='abrirEditar()'>${ total }</td>
           <td onclick='abrirEditar()'>${doc.data().MetodoPago}</td>
           <td onclick='abrirEditar()'>${doc.data().EstadoPago}</td>
           <td onclick='abrirEditar()'>${doc.data().Comprobante}</td>
@@ -111,6 +117,7 @@ const renderUser = ( doc ) => {
     id = doc.id;
     
     // Boton Editar
+
     const btnEdit = document.querySelector(`#${doc.id}`);
 
     btnEdit.addEventListener("click", () => {
@@ -127,12 +134,40 @@ const renderUser = ( doc ) => {
         editModalForm.Precio.value = doc.data().Precio
         editModalForm.ModoEntrega.value = doc.data().ModoEntrega
         editModalForm.PrecioDelivery.value = doc.data().PrecioDelivery
+        editModalForm.Total.value = doc.data().Total
         editModalForm.ModoPago.value = doc.data().ModoPago
         editModalForm.EstadoPago.value = doc.data().EstadoPago
         editModalForm.Comprobante.value = doc.data().Comprobante
         editModalForm.Sticker.value = doc.data().Sticker
         editModalForm.Obs.value = doc.data().Obs
   });
+
+
+
+// CLICK GUARDAR
+editModalForm.addEventListener( 'submit', e => {
+    e.preventDefault();
+    db.collection( 'Inventario' ).doc( id ).update({
+        ViaPedido: editModalForm.ViaPedido.value,
+        NroPedido: editModalForm.NroPedido.value,
+        Fecha: editModalForm.Fecha.value,
+        Nombre: editModalForm.Nombre.value,
+        Celular: editModalForm.Celular.value,
+        Direccion: editModalForm.Direccion.value,
+        Ciudad: editModalForm.Ciudad.value,
+        Correo: editModalForm.Correo.value,
+        Producto: editModalForm.Producto.value,
+        Precio: editModalForm.Precio.value,
+        ModoEntrega: editModalForm.ModoEntrega.value,
+        PrecioDelivery: editModalForm.PrecioDelivery.value,
+        ModoPago: editModalForm.ModoPago.value,
+        EstadoPago: editModalForm.EstadoPago.value,
+        Comprobante: editModalForm.Comprobante.value,
+        Sticker: editModalForm.Sticker.value,
+        Obs: editModalForm.Obs.value,
+    });
+    editModal.classList.remove( 'modal-show' );
+} )
 
     // Boton eliminar
     const btnDelete = document.querySelector(`#${doc.id} .btn-delete`);
@@ -192,18 +227,6 @@ addModalForm.addEventListener( 'submit', e => {
     modalWrapper.classList.remove( 'modal-show' );
 })
 
-// CLICK GUARDAR
-editModalForm.addEventListener( 'submit', e => {
-    e.preventDefault();
-    db.collection( 'Inventario' ).doc( id ).update({
-        Nombre: editModalForm.Nombre.value,
-        ViaPedido: editModalForm.ViaPedido.value,
-        Celular: editModalForm.Celular.value,
-        Correo: editModalForm.Correo.value,
-        MetodoPago: editModalForm.MetodoPago.value,
-    });
-    editModal.classList.remove( 'modal-show' );
-} )
 
 // Obtener usuarios
 
