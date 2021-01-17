@@ -202,10 +202,12 @@ window.addEventListener( 'click', e => {
     }
 })
 
+const generateID = () =>  id = "Row-" +  Date.now();
+
 // CLICK CARGAR NUEVO REGISTRO
 addModalForm.addEventListener( 'submit', e => {
     e.preventDefault();
-    db.collection( 'Inventario' ).add( {
+    db.collection( 'Inventario' ).doc( generateID() ).set( {
         ViaPedido: addModalForm.ViaPedido.value,
         NroPedido: addModalForm.NroPedido.value,
         Fecha: addModalForm.Fecha.value,
