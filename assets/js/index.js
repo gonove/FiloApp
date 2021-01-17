@@ -1,4 +1,4 @@
-// Your web app's Firebase configuration
+// CONFIGURACION FIREBASE
 var firebaseConfig = {
     apiKey: "AIzaSyDvaucJj0cRUZOveAnIoJEKAwy06xrLeEg",
     authDomain: "crudfiloapp.firebaseapp.com",
@@ -9,7 +9,7 @@ var firebaseConfig = {
 };
 
 
-// Initialize Firebase
+// INICIAR FIREBASE
 firebase.initializeApp( firebaseConfig );
 const db = firebase.firestore();
 
@@ -56,33 +56,12 @@ hoverIcon.forEach( l => l.addEventListener('click', animacion));
 // FIN PARTE GRAFICA
 
 
-// ------------------------------------------------------------------------------ //
 let id;
 const modalWrapper = document.querySelector( '.modal-wrapper' );
 
-// MODAL NUEVO REGISTRO
-const addModal = document.querySelector( '.add-modal' );
-const addModalForm = document.querySelector( '.add-modal .form')
 
-const btnAdd = document.querySelector( '.btn-add' );
-
-// Click Nuevo Registro
-btnAdd.addEventListener( 'click', () => {
-    addModal.classList.add( 'modal-show' );
-});
-
-// QUITAR MODAL DE LA PANTALLA
-window.addEventListener( 'click', e => {
-    if ( e.target === addModal) {
-        addModal.classList.remove( 'modal-show' );
-        addModalForm.reset();
-    }
-})
-
-// Crear elemento y renderizar Nombre
+// RENDERIZAR REGISTROS DE FIREBASE
 const tablaInventario = document.querySelector( '#tablaInventario' );
-
-
 
 const renderUser = ( doc ) => {
     
@@ -107,6 +86,7 @@ const renderUser = ( doc ) => {
           <td onclick='abrirEditar()'>${doc.data().EstadoPago}</td>
           <td onclick='abrirEditar()'>${doc.data().Comprobante}</td>
           <td onclick='abrirEditar()'>${doc.data().Sticker}</td>
+          <td onclick='abrirEditar()'>${doc.data().EstadoPedido}</td>
           <td onclick='abrirEditar()'>${doc.data().Obs}</td>
           <td id='${doc.id}'>
               <button class="btn btn-delete">Eliminar</button>
@@ -116,58 +96,58 @@ const renderUser = ( doc ) => {
 
     id = doc.id;
     
-    // Boton Editar
+    // RENDIZAR DATOS DE REGISTRO
 
     const btnEdit = document.querySelector(`#${doc.id}`);
 
     btnEdit.addEventListener("click", () => {
 
-        editModalForm.ViaPedido.value = doc.data().ViaPedido
-        editModalForm.NroPedido.value = doc.data().NroPedido
-        editModalForm.Fecha.value = doc.data().Fecha
-        editModalForm.Nombre.value = doc.data().Nombre
-        editModalForm.Celular.value = doc.data().Celular
-        editModalForm.Direccion.value = doc.data().Direccion
-        editModalForm.Ciudad.value = doc.data().Ciudad
-        editModalForm.Correo.value = doc.data().Correo
-        editModalForm.Producto.value = doc.data().Producto
-        editModalForm.Precio.value = doc.data().Precio
-        editModalForm.ModoEntrega.value = doc.data().ModoEntrega
-        editModalForm.PrecioDelivery.value = doc.data().PrecioDelivery
-        editModalForm.Total.value = doc.data().Total
-        editModalForm.ModoPago.value = doc.data().ModoPago
-        editModalForm.EstadoPago.value = doc.data().EstadoPago
-        editModalForm.Comprobante.value = doc.data().Comprobante
-        editModalForm.Sticker.value = doc.data().Sticker
-        editModalForm.Obs.value = doc.data().Obs
+        editModalForm.ViaPedido.value       = doc.data().ViaPedido
+        editModalForm.NroPedido.value       = doc.data().NroPedido
+        editModalForm.Fecha.value           = doc.data().Fecha
+        editModalForm.Nombre.value          = doc.data().Nombre
+        editModalForm.Celular.value         = doc.data().Celular
+        editModalForm.Direccion.value       = doc.data().Direccion
+        editModalForm.Ciudad.value          = doc.data().Ciudad
+        editModalForm.Correo.value          = doc.data().Correo
+        editModalForm.Producto.value        = doc.data().Producto
+        editModalForm.Precio.value          = doc.data().Precio
+        editModalForm.ModoEntrega.value     = doc.data().ModoEntrega
+        editModalForm.PrecioDelivery.value  = doc.data().PrecioDelivery
+        editModalForm.ModoPago.value        = doc.data().ModoPago
+        editModalForm.EstadoPago.value      = doc.data().EstadoPago
+        editModalForm.Comprobante.value     = doc.data().Comprobante
+        editModalForm.Sticker.value         = doc.data().Sticker
+        editModalForm.Sticker.value         = doc.data().EstadoPedido
+        editModalForm.Obs.value             = doc.data().Obs
   });
 
 
-
-// CLICK GUARDAR
-editModalForm.addEventListener( 'submit', e => {
-    e.preventDefault();
-    db.collection( 'Inventario' ).doc( id ).update({
-        ViaPedido: editModalForm.ViaPedido.value,
-        NroPedido: editModalForm.NroPedido.value,
-        Fecha: editModalForm.Fecha.value,
-        Nombre: editModalForm.Nombre.value,
-        Celular: editModalForm.Celular.value,
-        Direccion: editModalForm.Direccion.value,
-        Ciudad: editModalForm.Ciudad.value,
-        Correo: editModalForm.Correo.value,
-        Producto: editModalForm.Producto.value,
-        Precio: editModalForm.Precio.value,
-        ModoEntrega: editModalForm.ModoEntrega.value,
-        PrecioDelivery: editModalForm.PrecioDelivery.value,
-        ModoPago: editModalForm.ModoPago.value,
-        EstadoPago: editModalForm.EstadoPago.value,
-        Comprobante: editModalForm.Comprobante.value,
-        Sticker: editModalForm.Sticker.value,
-        Obs: editModalForm.Obs.value,
+    // CLICK GUARDAR
+    editModalForm.addEventListener( 'submit', e => {
+        e.preventDefault();
+        db.collection( 'Inventario' ).doc( id ).update({
+            ViaPedido:      editModalForm.ViaPedido.value,
+            NroPedido:      editModalForm.NroPedido.value,
+            Fecha:          editModalForm.Fecha.value,
+            Nombre:         editModalForm.Nombre.value,
+            Celular:        editModalForm.Celular.value,
+            Direccion:      editModalForm.Direccion.value,
+            Ciudad:         editModalForm.Ciudad.value,
+            Correo:         editModalForm.Correo.value,
+            Producto:       editModalForm.Producto.value,
+            Precio:         editModalForm.Precio.value,
+            ModoEntrega:    editModalForm.ModoEntrega.value,
+            PrecioDelivery: editModalForm.PrecioDelivery.value,
+            ModoPago:       editModalForm.ModoPago.value,
+            EstadoPago:     editModalForm.EstadoPago.value,
+            Comprobante:    editModalForm.Comprobante.value,
+            Sticker:        editModalForm.Sticker.value,
+            EstadoPedido:   editModalForm.EstadoPedido.value,
+            Obs:            editModalForm.Obs.value,
+        });
+        editModal.classList.remove( 'modal-show' );
     });
-    editModal.classList.remove( 'modal-show' );
-} )
 
     // Boton eliminar
     const btnDelete = document.querySelector(`#${doc.id} .btn-delete`);
@@ -185,14 +165,32 @@ editModalForm.addEventListener( 'submit', e => {
     });
 };
 
-// MODAL EDITAR REGISTRO
+// NUEVO REGISTRO
+const addModal = document.querySelector( '.add-modal' );
+const addModalForm = document.querySelector( '.add-modal .form')
+const btnAdd = document.querySelector( '.btn-add' );
+
+// CLICK NUEVO REGISTRO
+btnAdd.addEventListener( 'click', () => {
+    addModal.classList.add( 'modal-show' );
+});
+
+// QUITAR MODAL DE LA PANTALLA
+window.addEventListener( 'click', e => {
+    if ( e.target === addModal) {
+        addModal.classList.remove( 'modal-show' );
+        addModalForm.reset();
+    }
+})
+
+// EDITAR REGISTRO
+
+const editModal = document.querySelector( '.edit-modal' );
+const editModalForm = document.querySelector( '.edit-modal .form' ); //Para agregar usuarios
 
 const abrirEditar = () => {
     editModal.classList.add( 'modal-show' ); 
 }
-
-const editModal = document.querySelector( '.edit-modal' );
-const editModalForm = document.querySelector( '.edit-modal .form' ); //Para agregar usuarios
 
 // QUITAR MODAL EDITAR REGISTRO
 window.addEventListener( 'click', e => {
@@ -208,23 +206,24 @@ const generateID = () =>  id = "Row-" +  Date.now();
 addModalForm.addEventListener( 'submit', e => {
     e.preventDefault();
     db.collection( 'Inventario' ).doc( generateID() ).set( {
-        ViaPedido: addModalForm.ViaPedido.value,
-        NroPedido: addModalForm.NroPedido.value,
-        Fecha: addModalForm.Fecha.value,
-        Nombre: addModalForm.Nombre.value,
-        Celular: addModalForm.Celular.value,
-        Direccion: addModalForm.Direccion.value,
-        Ciudad: addModalForm.Ciudad.value,
-        Correo: addModalForm.Correo.value,
-        Producto: addModalForm.Producto.value,
-        Precio: addModalForm.Precio.value,
-        ModoEntrega: addModalForm.ModoEntrega.value,
+        ViaPedido:      addModalForm.ViaPedido.value,
+        NroPedido:      addModalForm.NroPedido.value,
+        Fecha:          addModalForm.Fecha.value,
+        Nombre:         addModalForm.Nombre.value,
+        Celular:        addModalForm.Celular.value,
+        Direccion:      addModalForm.Direccion.value,
+        Ciudad:         addModalForm.Ciudad.value,
+        Correo:         addModalForm.Correo.value,
+        Producto:       addModalForm.Producto.value,
+        Precio:         addModalForm.Precio.value,
+        ModoEntrega:    addModalForm.ModoEntrega.value,
         PrecioDelivery: addModalForm.PrecioDelivery.value,
-        ModoPago: addModalForm.ModoPago.value,
-        EstadoPago: addModalForm.EstadoPago.value,
-        Comprobante: addModalForm.Comprobante.value,
-        Sticker: addModalForm.Sticker.value,
-        Obs: addModalForm.Obs.value,
+        ModoPago:       addModalForm.ModoPago.value,
+        EstadoPago:     addModalForm.EstadoPago.value,
+        Comprobante:    addModalForm.Comprobante.value,
+        Sticker:        addModalForm.Sticker.value,
+        EstadoPedido:   addModalForm.EstadoPedido.value,
+        Obs:            addModalForm.Obs.value,
     } );
     modalWrapper.classList.remove( 'modal-show' );
 })
@@ -256,5 +255,5 @@ db.collection( 'Inventario' ).onSnapshot( snapshot => {
             tablaInventario.removeChild( tbody );
             renderUser( change.doc );
         }
-    } )
-} )
+    });
+});
