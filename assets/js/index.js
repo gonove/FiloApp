@@ -62,6 +62,7 @@ const modalWrapper = document.querySelector( '.modal-wrapper' );
 
 // RENDERIZAR REGISTROS DE FIREBASE
 const tablaInventario = document.querySelector( '#tablaInventario' );
+const tablaPreparar = document.querySelector( '#tablaPreparar' );
 
 const renderUser = ( doc ) => {
     
@@ -91,9 +92,26 @@ const renderUser = ( doc ) => {
               <button class="btn btn-delete">Eliminar</button>
           </td>
       </tr>`;
+
     tablaInventario.insertAdjacentHTML("beforeend", tr);
 
-    
+    const trPre = `
+        <tr id='${doc.id}'>
+            <td onclick='abrirEditar2()'>${doc.data().ViaPedido}</td>
+            <td onclick='abrirEditar2()'>${doc.data().NroPedido}</td>
+            <td onclick='abrirEditar2()'>${doc.data().Fecha}</td>
+            <td onclick='abrirEditar2()'>${doc.data().Nombre}</td>
+            <td onclick='abrirEditar2()'>${doc.data().Producto}</td>
+            <td onclick='abrirEditar2()'>${doc.data().ModoEntrega}</td>
+            <td onclick='abrirEditar2()'>${doc.data().Sticker}</td>
+            <td onclick='abrirEditar2()'>${doc.data().EstadoPedido}</td>
+            <td onclick='abrirEditar2()'>${doc.data().Obs}</td>
+            <td id='${doc.id}'>
+                <button class="btn btn-delete">Eliminar</button>
+            </td>
+        </tr>`;
+        tablaPreparar.insertAdjacentHTML("beforeend", trPre);
+
     // RENDIZAR DATOS DE REGISTRO
     const btnEdit = document.querySelector(`#${doc.id}`);
     btnEdit.addEventListener("click", () => {
@@ -161,16 +179,17 @@ window.addEventListener( 'click', e => {
 // EDITAR REGISTRO
 
 const editModal = document.querySelector( '.edit-modal' );
+const editModal2 = document.querySelector( '.edit-modal2' );
 const editModalForm = document.querySelector( '.edit-modal .form' ); //Para agregar usuarios
 
-const abrirEditar = () => {
-    editModal.classList.add( 'modal-show' );
-}
+const abrirEditar = () => editModal.classList.add( 'modal-show' );
+const abrirEditar2 = () => editModal2.classList.add( 'modal-show' );
 
 // QUITAR MODAL EDITAR REGISTRO
 window.addEventListener( 'click', e => {
-    if ( e.target === editModal) {
+    if ( e.target === editModal || e.target === editModal2 ) {
         editModal.classList.remove( 'modal-show' );
+        editModal2.classList.remove( 'modal-show' );
         editModalForm.reset();
     }
 })
@@ -201,7 +220,7 @@ editModalForm.addEventListener( 'submit', e => {
     editModal.classList.remove( 'modal-show' );
 });
 
-const generateID = () =>  id = "Row-" +  Date.now();
+const generateID = id => "Inv-" +  Date.now();
 
 // CLICK CARGAR NUEVO REGISTRO
 addModalForm.addEventListener( 'submit', e => {
@@ -230,16 +249,7 @@ addModalForm.addEventListener( 'submit', e => {
 })
 
 
-// Obtener usuarios
-
-// db.collection( 'Inventario' ).get().then( querySnapshot => {
-//     querySnapshot.forEach( doc => {
-//         renderUser(doc);
-//     })
-// })
-
 // REALTIME LISTENER
-
 db.collection( 'Inventario' ).onSnapshot( snapshot => {
     snapshot.docChanges().forEach( change => {
         if ( change.type === 'added') {
@@ -254,6 +264,7 @@ db.collection( 'Inventario' ).onSnapshot( snapshot => {
             let tr = document.querySelector( `#${change.doc.id}` );
             let tbody = tr.parentElement;
             tablaInventario.removeChild( tbody );
+            
             renderUser( change.doc );
         }
     });

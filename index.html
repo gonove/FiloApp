@@ -60,7 +60,8 @@
             </a>
         </nav>
     </div>
-    <div id="container">
+    <!-- INVENTARIO -->
+    <div id="container" class="inventario">
         <header>
             <h1>Inventario</h1>
             <nav id="botones">
@@ -190,6 +191,63 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- PREPARAR -->
+    <div id="container" class="Preparar">
+        <header>
+            <h1>Pedidos a preparar</h1>
+            <!-- <nav id="botones">
+                <ul>
+                    <li class="search-box">
+                        <input type="text" class="search-txt" placeholder="Buscar registro...">
+                        <a href="#" class="search-btn">
+                            <i class='bx bx-search-alt-2'></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav> -->
+        </header>
+        <div class="tabla">
+            <table class="table" id="tablaPreparar">
+                <tr id="col">
+                    <th scope="col">Via pedido</th>
+                    <th scope="col">Nro. Pedido</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Modo entrega</th>
+                    <th scope="col">Sticker</th>
+                    <th scope="col">Estado Pedido</th>
+                    <th scope="col">Obs</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+
+            </table>
+        </div>
+
+        <!-- Edit Modal -->
+        <div class="edit-modal2 modal-wrapper">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Editar registro</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="form">
+                        <input type="text" name="ViaPedido" placeholder="Via pedido">
+                        <input type="text" name="NroPedido" placeholder="Numero pedido">
+                        <input type="date" name="Fecha" placeholder="Fecha">
+                        <input type="text" name="Nombre" placeholder="Nombre">
+                        <input type="text" name="Producto" placeholder="Producto">
+                        <input type="text" name="ModoEntrega" placeholder="Metodo Entrega">
+                        <input type="text" name="Sticker" placeholder="Sticker">
+                        <input type="text" name="EstadoPedido" placeholder="Estado Pedido">
+                        <input type="text" name="Obs" placeholder="Observacion">
+                        <button class="btn btn-guardar">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
     </div>
 
 
