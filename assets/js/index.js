@@ -82,7 +82,7 @@ const renderUser = ( doc ) => {
           <td onclick='abrirEditar()'>${doc.data().ModoEntrega}</td>
           <td onclick='abrirEditar()'>${doc.data().PrecioDelivery}</td>
           <td onclick='abrirEditar()'>${ total }</td>
-          <td onclick='abrirEditar()'>${doc.data().MetodoPago}</td>
+          <td onclick='abrirEditar()'>${doc.data().ModoPago}</td>
           <td onclick='abrirEditar()'>${doc.data().EstadoPago}</td>
           <td onclick='abrirEditar()'>${doc.data().Comprobante}</td>
           <td onclick='abrirEditar()'>${doc.data().Sticker}</td>
