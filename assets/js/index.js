@@ -68,7 +68,7 @@ const renderUser = ( doc ) => {
     
     const total = parseInt( doc.data().PrecioDelivery ) + parseInt( doc.data().Precio );
     const tr = `
-      <tr id='${doc.id}'>
+      <tr id='Inv${doc.id}'>
           <td onclick='abrirEditar()'>${doc.data().ViaPedido}</td>
           <td onclick='abrirEditar()'>${doc.data().NroPedido}</td>
           <td onclick='abrirEditar()'>${doc.data().Fecha}</td>
@@ -88,7 +88,7 @@ const renderUser = ( doc ) => {
           <td onclick='abrirEditar()'>${doc.data().Sticker}</td>
           <td onclick='abrirEditar()'>${doc.data().EstadoPedido}</td>
           <td onclick='abrirEditar()'>${doc.data().Obs}</td>
-          <td id='${doc.id}'>
+          <td id='Inv${doc.id}'>
               <button class="btn btn-delete">Eliminar</button>
           </td>
       </tr>`;
@@ -96,7 +96,7 @@ const renderUser = ( doc ) => {
     tablaInventario.insertAdjacentHTML("beforeend", tr);
 
     const trPre = `
-        <tr id='${doc.id}'>
+        <tr id='Pre${doc.id}'>
             <td onclick='abrirEditar2()'>${doc.data().ViaPedido}</td>
             <td onclick='abrirEditar2()'>${doc.data().NroPedido}</td>
             <td onclick='abrirEditar2()'>${doc.data().Fecha}</td>
@@ -106,16 +106,17 @@ const renderUser = ( doc ) => {
             <td onclick='abrirEditar2()'>${doc.data().Sticker}</td>
             <td onclick='abrirEditar2()'>${doc.data().EstadoPedido}</td>
             <td onclick='abrirEditar2()'>${doc.data().Obs}</td>
-            <td id='${doc.id}'>
+            <td id='Pre${doc.id}'>
+                <button class="btn btn-delete">Listo</button>
                 <button class="btn btn-delete">Eliminar</button>
             </td>
         </tr>`;
         tablaPreparar.insertAdjacentHTML("beforeend", trPre);
 
-    // RENDIZAR DATOS DE REGISTRO
-    const btnEdit = document.querySelector(`#${doc.id}`);
+    // RENDIZAR DATOS DE REGISTRO -> INVENTARIO
+    const btnEdit = document.querySelector(`#Inv${doc.id}`);
     btnEdit.addEventListener("click", () => {
-        id = doc.id;
+        id = doc.id; //Para reconocer el ID que se dio click
         editModalForm.ViaPedido.value       = doc.data().ViaPedido
         editModalForm.NroPedido.value       = doc.data().NroPedido
         editModalForm.Fecha.value           = doc.data().Fecha
@@ -136,8 +137,24 @@ const renderUser = ( doc ) => {
         editModalForm.Obs.value             = doc.data().Obs
     });
 
+    // RENDERIZAR DATOS DE REGISTRO -> PREPARAR
+    const btnEdit2 = document.querySelector( `#Pre${doc.id}` );
+
+    btnEdit2.addEventListener("click", () => {
+        // id = doc.id; //Para reconocer el ID que se dio click
+        editModalForm.ViaPedido.value       = doc.data().ViaPedido
+        editModalForm.NroPedido.value       = doc.data().NroPedido
+        editModalForm.Fecha.value           = doc.data().Fecha
+        editModalForm.Nombre.value          = doc.data().Nombre
+        editModalForm.Producto.value        = doc.data().Producto
+        editModalForm.ModoEntrega.value     = doc.data().ModoEntrega
+        editModalForm.Sticker.value         = doc.data().Sticker
+        editModalForm.EstadoPedido.value    = doc.data().EstadoPedido
+        editModalForm.Obs.value             = doc.data().Obs
+    });
+
     // BOTON ELIMINAR
-    const btnDelete = document.querySelector(`#${doc.id} .btn-delete`);
+    const btnDelete = document.querySelector(`#Inv${doc.id} .btn-delete`);
     btnDelete.addEventListener("click", () => {
       db.collection("Inventario")
         .doc(`${doc.id}`)
@@ -181,6 +198,7 @@ window.addEventListener( 'click', e => {
 const editModal = document.querySelector( '.edit-modal' );
 const editModal2 = document.querySelector( '.edit-modal2' );
 const editModalForm = document.querySelector( '.edit-modal .form' ); //Para agregar usuarios
+const editModalForm2 = document.querySelector( '.edit-modal2 .form' ); //Para agregar usuarios
 
 const abrirEditar = () => editModal.classList.add( 'modal-show' );
 const abrirEditar2 = () => editModal2.classList.add( 'modal-show' );
@@ -194,7 +212,7 @@ window.addEventListener( 'click', e => {
     }
 })
 
-// CLICK GUARDAR NUVEO REGISTRO
+// CLICK GUARDAR NUEVO REGISTRO
 editModalForm.addEventListener( 'submit', e => {
     e.preventDefault();
     db.collection( 'Inventario' ).doc( id ).update({
@@ -220,7 +238,7 @@ editModalForm.addEventListener( 'submit', e => {
     editModal.classList.remove( 'modal-show' );
 });
 
-const generateID = id => "Inv-" +  Date.now();
+const generateID = id => "Row-" +  Date.now();
 
 // CLICK CARGAR NUEVO REGISTRO
 addModalForm.addEventListener( 'submit', e => {
@@ -256,16 +274,39 @@ db.collection( 'Inventario' ).onSnapshot( snapshot => {
             renderUser( change.doc );
         }
         if ( change.type === 'removed' ) {
-            let tr = document.querySelector( `#${change.doc.id}` );
+            let tr = document.querySelector( `#Inv${change.doc.id}` );
             let tbody = tr.parentElement;
             tablaInventario.removeChild( tbody );
         }
         if ( change.type === 'modified' ) {
-            let tr = document.querySelector( `#${change.doc.id}` );
+            let tr = document.querySelector( `#Inv${change.doc.id}` );
+            let tr2 = document.querySelector( `#Pre${change.doc.id}` );
             let tbody = tr.parentElement;
+            let tbody2 = tr2.parentElement;
             tablaInventario.removeChild( tbody );
+            tablaInventario.removeChild( tbody2 );
             
             renderUser( change.doc );
         }
     });
 });
+
+// NAVEGAR ENTRE PAGINAS
+
+const iconoInventario = document.querySelector( '#icon-inventario' );
+const iconoPreparar = document.querySelector( '#icon-preparar' );
+
+
+const tabPreparar = document.querySelector( '.preparar' );
+const tabInventario = document.querySelector( '.inventario' );
+
+iconoPreparar.addEventListener( 'click', () => {
+    tabPreparar.style.display = 'block';
+    tabInventario.style.display = 'none';
+});
+
+iconoInventario.addEventListener( 'click', () => {
+    tabInventario.style.display = 'block';
+    tabPreparar.style.display = 'none';
+
+} )
