@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- STYLES CSS -->
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 
     <!-- BOX ICONS CSS-->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
@@ -19,7 +19,7 @@
         <nav class="nav">
             <div>
                 <a href="#" class="nav__logo">
-                    <img src="./logo.svg" alt="" class="nav__logo-icon">
+                    <img src="assets/icons/logo.svg" alt="" class="nav__logo-icon">
                     <span class="nav__logo-text">FiloApp</span>
                 </a>
 
@@ -28,19 +28,19 @@
                 </div>
 
                 <ul class="nav__list">
-                    <a href="#" class="nav__link active">
+                    <a href="#" class="nav__link active" id="icon-inventario">
                         <i class='bx bx-table nav__icon'></i>
                         <span class="nav__text">Inventario</span>
                     </a>
-                    <a href="#" class="nav__link">
+                    <a href="#" class="nav__link" id="icon-preparar">
                         <i class='bx bx-send nav__icon'></i>
-                        <span class="nav__text">Delivery</span>
+                        <span class="nav__text">Preparar</span>
                     </a>
                     <a href="#" class="nav__link">
                         <i class='bx bxs-dashboard nav__icon'></i>
-                        <span class="nav__text">Dashboard</span>
+                        <span class="nav__text">Delivery</span>
                     </a>
-                    <!-- <a href="#" class="nav__link">
+                     <!-- <a href="#" class="nav__link">
                             <i class='bx bx-heart nav__icon'></i>
                             <span class="nav__text">Favorites</span>
                         </a>
@@ -51,7 +51,7 @@
                         <a href="#" class="nav__link">
                             <i class='bx bx-message-rounded nav__icon' ></i>
                             <span class="nav__text">Chat</span>
-                        </a>                  -->
+                        </a>                   -->
                 </ul>
             </div>
             <a href="https://www.tiendafilomena.com" class="nav__link">
@@ -60,7 +60,8 @@
             </a>
         </nav>
     </div>
-    <div id="container">
+    <!-- INVENTARIO -->
+    <div id="container" class="inventario">
         <header>
             <h1>Inventario</h1>
             <nav id="botones">
@@ -84,16 +85,15 @@
         <div class="tabla">
             <table class="table" id="tablaInventario">
                 <tr id="col">
-                    <!-- <th scope="col">ID</th> -->
                     <th scope="col">Via pedido</th>
                     <th scope="col">Nro. Pedido</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Celular</th>
-                    <th scope="col">Direccion</th>
+                    <th scope="col">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspDireccion&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
                     <th scope="col">Ciudad</th>
                     <th scope="col">Correo</th>
-                    <th scope="col">Producto</th>
+                    <th scope="col">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspProducto&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Modo entrega</th>
                     <th scope="col">Precio Delivery</th>
@@ -103,7 +103,7 @@
                     <th scope="col">Comprobante</th>
                     <th scope="col">Sticker</th>
                     <th scope="col">Estado Pedido</th>
-                    <th scope="col">Obs</th>
+                    <th scope="col">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspObs&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
                     <th scope="col">Acciones</th>
                 </tr>
 
@@ -118,7 +118,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="form">
-                        <input type="text" name="ViaPedido" placeholder="Via pedido">
+                        <input type="text" name="ViaPedido" placeholder="Via pedido" value="WhatsApp">
                         <input type="text" name="NroPedido" placeholder="Numero pedido">
                         <input type="date" name="Fecha" placeholder="Fecha">
                         <input type="text" name="Nombre" placeholder="Nombre">
@@ -184,13 +184,70 @@
         </div>
 
         <!-- Delete Modal -->
-        <div class="success-modal modal-wrapper">
+        <div class="delete-modal modal-wrapper">
             <div class="modal">
                 <div class="modal-header">
                     <h3>Registro eliminado!</h3>
                 </div>
             </div>
         </div>
+    </div>
+    <!-- PREPARAR -->
+    <div id="container" class="preparar">
+        <header>
+            <h1>Pedidos a preparar</h1>
+            <!-- <nav id="botones">
+                <ul>
+                    <li class="search-box">
+                        <input type="text" class="search-txt" placeholder="Buscar registro...">
+                        <a href="#" class="search-btn">
+                            <i class='bx bx-search-alt-2'></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav> -->
+        </header>
+        <div class="tabla">
+            <table class="table" id="tablaPreparar">
+                <tr id="col">
+                    <th scope="col">Via pedido</th>
+                    <th scope="col">Nro. Pedido</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Modo entrega</th>
+                    <th scope="col">Sticker</th>
+                    <th scope="col">Estado Pedido</th>
+                    <th scope="col">Obs</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+
+            </table>
+        </div>
+
+        <!-- Edit Modal -->
+        <div class="edit-modal2 modal-wrapper">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Editar registro</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="form">
+                        <input type="text" name="ViaPedido" placeholder="Via pedido">
+                        <input type="text" name="NroPedido" placeholder="Numero pedido">
+                        <input type="date" name="Fecha" placeholder="Fecha">
+                        <input type="text" name="Nombre" placeholder="Nombre">
+                        <input type="text" name="Producto" placeholder="Producto">
+                        <input type="text" name="ModoEntrega" placeholder="Metodo Entrega">
+                        <input type="text" name="Sticker" placeholder="Sticker">
+                        <input type="text" name="EstadoPedido" placeholder="Estado Pedido">
+                        <input type="text" name="Obs" placeholder="Observacion">
+                        <button class="btn btn-guardar">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
     </div>
 
 
@@ -202,7 +259,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-firestore.js"></script>
 
     <!-- MAIN JS -->
-    <script src="./index.js"></script>
+    <script src="./assets/js/index.js"></script>
 </body>
 
 </html>

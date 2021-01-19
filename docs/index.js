@@ -62,14 +62,14 @@ const modalWrapper = document.querySelector( '.modal-wrapper' );
 
 // RENDERIZAR REGISTROS DE FIREBASE
 const tablaInventario = document.querySelector( '#tablaInventario' );
+const tablaPreparar = document.querySelector( '#tablaPreparar' );
 
 const renderUser = ( doc ) => {
     
     const total = parseInt( doc.data().PrecioDelivery ) + parseInt( doc.data().Precio );
-    
     const tr = `
-      <tr id='${doc.id}'>
-          <td onclick='abrirEditar()' id='${doc.id}'>${doc.data().ViaPedido}</td>
+      <tr id='Inv${doc.id}'>
+          <td onclick='abrirEditar()'>${doc.data().ViaPedido}</td>
           <td onclick='abrirEditar()'>${doc.data().NroPedido}</td>
           <td onclick='abrirEditar()'>${doc.data().Fecha}</td>
           <td onclick='abrirEditar()'>${doc.data().Nombre}</td>
@@ -82,26 +82,41 @@ const renderUser = ( doc ) => {
           <td onclick='abrirEditar()'>${doc.data().ModoEntrega}</td>
           <td onclick='abrirEditar()'>${doc.data().PrecioDelivery}</td>
           <td onclick='abrirEditar()'>${ total }</td>
-          <td onclick='abrirEditar()'>${doc.data().MetodoPago}</td>
+          <td onclick='abrirEditar()'>${doc.data().ModoPago}</td>
           <td onclick='abrirEditar()'>${doc.data().EstadoPago}</td>
           <td onclick='abrirEditar()'>${doc.data().Comprobante}</td>
           <td onclick='abrirEditar()'>${doc.data().Sticker}</td>
           <td onclick='abrirEditar()'>${doc.data().EstadoPedido}</td>
           <td onclick='abrirEditar()'>${doc.data().Obs}</td>
-          <td id='${doc.id}'>
+          <td id='Inv${doc.id}'>
               <button class="btn btn-delete">Eliminar</button>
           </td>
       </tr>`;
+
     tablaInventario.insertAdjacentHTML("beforeend", tr);
 
-    id = doc.id;
-    
-    // RENDIZAR DATOS DE REGISTRO
+    const trPre = `
+        <tr id='Pre${doc.id}'>
+            <td onclick='abrirEditar2()'>${doc.data().ViaPedido}</td>
+            <td onclick='abrirEditar2()'>${doc.data().NroPedido}</td>
+            <td onclick='abrirEditar2()'>${doc.data().Fecha}</td>
+            <td onclick='abrirEditar2()'>${doc.data().Nombre}</td>
+            <td onclick='abrirEditar2()'>${doc.data().Producto}</td>
+            <td onclick='abrirEditar2()'>${doc.data().ModoEntrega}</td>
+            <td onclick='abrirEditar2()'>${doc.data().Sticker}</td>
+            <td onclick='abrirEditar2()'>${doc.data().EstadoPedido}</td>
+            <td onclick='abrirEditar2()'>${doc.data().Obs}</td>
+            <td id='Pre${doc.id}'>
+                <button class="btn btn-delete">Listo</button>
+                <button class="btn btn-delete">Eliminar</button>
+            </td>
+        </tr>`;
+        tablaPreparar.insertAdjacentHTML("beforeend", trPre);
 
-    const btnEdit = document.querySelector(`#${doc.id}`);
-
+    // RENDIZAR DATOS DE REGISTRO -> INVENTARIO
+    const btnEdit = document.querySelector(`#Inv${doc.id}`);
     btnEdit.addEventListener("click", () => {
-
+        id = doc.id; //Para reconocer el ID que se dio click
         editModalForm.ViaPedido.value       = doc.data().ViaPedido
         editModalForm.NroPedido.value       = doc.data().NroPedido
         editModalForm.Fecha.value           = doc.data().Fecha
@@ -118,49 +133,52 @@ const renderUser = ( doc ) => {
         editModalForm.EstadoPago.value      = doc.data().EstadoPago
         editModalForm.Comprobante.value     = doc.data().Comprobante
         editModalForm.Sticker.value         = doc.data().Sticker
-        editModalForm.Sticker.value         = doc.data().EstadoPedido
+        editModalForm.EstadoPedido.value    = doc.data().EstadoPedido
         editModalForm.Obs.value             = doc.data().Obs
-  });
-
-
-    // CLICK GUARDAR
-    editModalForm.addEventListener( 'submit', e => {
-        e.preventDefault();
-        db.collection( 'Inventario' ).doc( id ).update({
-            ViaPedido:      editModalForm.ViaPedido.value,
-            NroPedido:      editModalForm.NroPedido.value,
-            Fecha:          editModalForm.Fecha.value,
-            Nombre:         editModalForm.Nombre.value,
-            Celular:        editModalForm.Celular.value,
-            Direccion:      editModalForm.Direccion.value,
-            Ciudad:         editModalForm.Ciudad.value,
-            Correo:         editModalForm.Correo.value,
-            Producto:       editModalForm.Producto.value,
-            Precio:         editModalForm.Precio.value,
-            ModoEntrega:    editModalForm.ModoEntrega.value,
-            PrecioDelivery: editModalForm.PrecioDelivery.value,
-            ModoPago:       editModalForm.ModoPago.value,
-            EstadoPago:     editModalForm.EstadoPago.value,
-            Comprobante:    editModalForm.Comprobante.value,
-            Sticker:        editModalForm.Sticker.value,
-            EstadoPedido:   editModalForm.EstadoPedido.value,
-            Obs:            editModalForm.Obs.value,
-        });
-        editModal.classList.remove( 'modal-show' );
     });
 
-    // Boton eliminar
-    const btnDelete = document.querySelector(`#${doc.id} .btn-delete`);
+    // RENDERIZAR DATOS DE REGISTRO -> PREPARAR
+    const btnEdit2 = document.querySelector( `#Pre${doc.id}` );
+    btnEdit2.addEventListener("click", () => {
+        // id = doc.id; //Para reconocer el ID que se dio click
+        editModalForm2.ViaPedido.value       = doc.data().ViaPedido
+        editModalForm2.NroPedido.value       = doc.data().NroPedido
+        editModalForm2.Fecha.value           = doc.data().Fecha
+        editModalForm2.Nombre.value          = doc.data().Nombre
+        editModalForm2.Producto.value        = doc.data().Producto
+        editModalForm2.ModoEntrega.value     = doc.data().ModoEntrega
+        editModalForm2.Sticker.value         = doc.data().Sticker
+        editModalForm2.EstadoPedido.value    = doc.data().EstadoPedido
+        editModalForm2.Obs.value             = doc.data().Obs
+    });
+
+    // BOTON ELIMINAR
+    const btnDelete = document.querySelector(`#Inv${doc.id} .btn-delete`);
+    const btnDelete2 = document.querySelector(`#Pre${doc.id} .btn-delete`);
+    console.log(btnDelete);
+    window.addEventListener( 'click', e => {
+        console.log(e.target)
+        if (e.target == btnDelete) {
+            
+        }
+    })
 
     btnDelete.addEventListener("click", () => {
       db.collection("Inventario")
         .doc(`${doc.id}`)
         .delete()
         .then(() => {
-          console.log("Agregar refresh o algo<3");
+            const modalDelete = document.querySelector( '.delete-modal' )
+            modalDelete.classList.add( 'modal-show' );
+
+            window.addEventListener( 'click', e => {
+                if ( e.target === modalDelete) {
+                    modalDelete.classList.remove( 'modal-show' );
+                }
+            })
         })
         .catch((err) => {
-          console.log("Agregar algun modal de fallo o algo </3");
+          console.log("</3");
         });
     });
 };
@@ -186,21 +204,50 @@ window.addEventListener( 'click', e => {
 // EDITAR REGISTRO
 
 const editModal = document.querySelector( '.edit-modal' );
-const editModalForm = document.querySelector( '.edit-modal .form' ); //Para agregar usuarios
+const editModal2 = document.querySelector( '.edit-modal2' );
 
-const abrirEditar = () => {
-    editModal.classList.add( 'modal-show' ); 
-}
+const editModalForm = document.querySelector( '.edit-modal .form' ); //Para agregar usuarios
+const editModalForm2 = document.querySelector( '.edit-modal2 .form' ); //Para agregar usuarios
+
+const abrirEditar = () => editModal.classList.add( 'modal-show' );
+const abrirEditar2 = () => editModal2.classList.add( 'modal-show' );
 
 // QUITAR MODAL EDITAR REGISTRO
 window.addEventListener( 'click', e => {
-    if ( e.target === editModal) {
+    if ( e.target === editModal || e.target === editModal2 ) {
         editModal.classList.remove( 'modal-show' );
+        editModal2.classList.remove( 'modal-show' );
         editModalForm.reset();
     }
 })
 
-const generateID = () =>  id = "Row-" +  Date.now();
+// CLICK GUARDAR NUEVO REGISTRO
+editModalForm.addEventListener( 'submit', e => {
+    e.preventDefault();
+    db.collection( 'Inventario' ).doc( id ).update({
+        ViaPedido:      editModalForm.ViaPedido.value,
+        NroPedido:      editModalForm.NroPedido.value,
+        Fecha:          editModalForm.Fecha.value,
+        Nombre:         editModalForm.Nombre.value,
+        Celular:        editModalForm.Celular.value,
+        Direccion:      editModalForm.Direccion.value,
+        Ciudad:         editModalForm.Ciudad.value,
+        Correo:         editModalForm.Correo.value,
+        Producto:       editModalForm.Producto.value,
+        Precio:         editModalForm.Precio.value,
+        ModoEntrega:    editModalForm.ModoEntrega.value,
+        PrecioDelivery: editModalForm.PrecioDelivery.value,
+        ModoPago:       editModalForm.ModoPago.value,
+        EstadoPago:     editModalForm.EstadoPago.value,
+        Comprobante:    editModalForm.Comprobante.value,
+        Sticker:        editModalForm.Sticker.value,
+        EstadoPedido:   editModalForm.EstadoPedido.value,
+        Obs:            editModalForm.Obs.value,
+    });
+    editModal.classList.remove( 'modal-show' );
+});
+
+const generateID = id => "Row-" +  Date.now();
 
 // CLICK CARGAR NUEVO REGISTRO
 addModalForm.addEventListener( 'submit', e => {
@@ -229,31 +276,46 @@ addModalForm.addEventListener( 'submit', e => {
 })
 
 
-// Obtener usuarios
-
-// db.collection( 'Inventario' ).get().then( querySnapshot => {
-//     querySnapshot.forEach( doc => {
-//         renderUser(doc);
-//     })
-// })
-
 // REALTIME LISTENER
-
 db.collection( 'Inventario' ).onSnapshot( snapshot => {
     snapshot.docChanges().forEach( change => {
         if ( change.type === 'added') {
             renderUser( change.doc );
         }
         if ( change.type === 'removed' ) {
-            let tr = document.querySelector( `#${change.doc.id}` );
+            let tr = document.querySelector( `#Inv${change.doc.id}` );
             let tbody = tr.parentElement;
             tablaInventario.removeChild( tbody );
         }
         if ( change.type === 'modified' ) {
-            let tr = document.querySelector( `#${change.doc.id}` );
+            let tr = document.querySelector( `#Inv${change.doc.id}` );
+            let tr2 = document.querySelector( `#Pre${change.doc.id}` );
             let tbody = tr.parentElement;
+            let tbody2 = tr2.parentElement;
             tablaInventario.removeChild( tbody );
+            tablaInventario.removeChild( tbody2 );
+            
             renderUser( change.doc );
         }
     });
 });
+
+// NAVEGAR ENTRE PAGINAS
+
+const iconoInventario = document.querySelector( '#icon-inventario' );
+const iconoPreparar = document.querySelector( '#icon-preparar' );
+
+
+const tabPreparar = document.querySelector( '.preparar' );
+const tabInventario = document.querySelector( '.inventario' );
+
+iconoPreparar.addEventListener( 'click', () => {
+    tabPreparar.style.display = 'block';
+    tabInventario.style.display = 'none';
+});
+
+iconoInventario.addEventListener( 'click', () => {
+    tabInventario.style.display = 'block';
+    tabPreparar.style.display = 'none';
+
+} )

@@ -139,22 +139,30 @@ const renderUser = ( doc ) => {
 
     // RENDERIZAR DATOS DE REGISTRO -> PREPARAR
     const btnEdit2 = document.querySelector( `#Pre${doc.id}` );
-
     btnEdit2.addEventListener("click", () => {
         // id = doc.id; //Para reconocer el ID que se dio click
-        editModalForm.ViaPedido.value       = doc.data().ViaPedido
-        editModalForm.NroPedido.value       = doc.data().NroPedido
-        editModalForm.Fecha.value           = doc.data().Fecha
-        editModalForm.Nombre.value          = doc.data().Nombre
-        editModalForm.Producto.value        = doc.data().Producto
-        editModalForm.ModoEntrega.value     = doc.data().ModoEntrega
-        editModalForm.Sticker.value         = doc.data().Sticker
-        editModalForm.EstadoPedido.value    = doc.data().EstadoPedido
-        editModalForm.Obs.value             = doc.data().Obs
+        editModalForm2.ViaPedido.value       = doc.data().ViaPedido
+        editModalForm2.NroPedido.value       = doc.data().NroPedido
+        editModalForm2.Fecha.value           = doc.data().Fecha
+        editModalForm2.Nombre.value          = doc.data().Nombre
+        editModalForm2.Producto.value        = doc.data().Producto
+        editModalForm2.ModoEntrega.value     = doc.data().ModoEntrega
+        editModalForm2.Sticker.value         = doc.data().Sticker
+        editModalForm2.EstadoPedido.value    = doc.data().EstadoPedido
+        editModalForm2.Obs.value             = doc.data().Obs
     });
 
     // BOTON ELIMINAR
     const btnDelete = document.querySelector(`#Inv${doc.id} .btn-delete`);
+    const btnDelete2 = document.querySelector(`#Pre${doc.id} .btn-delete`);
+    console.log(btnDelete);
+    window.addEventListener( 'click', e => {
+        console.log(e.target)
+        if (e.target == btnDelete) {
+            
+        }
+    })
+
     btnDelete.addEventListener("click", () => {
       db.collection("Inventario")
         .doc(`${doc.id}`)
@@ -197,6 +205,7 @@ window.addEventListener( 'click', e => {
 
 const editModal = document.querySelector( '.edit-modal' );
 const editModal2 = document.querySelector( '.edit-modal2' );
+
 const editModalForm = document.querySelector( '.edit-modal .form' ); //Para agregar usuarios
 const editModalForm2 = document.querySelector( '.edit-modal2 .form' ); //Para agregar usuarios
 
