@@ -107,11 +107,10 @@ const renderUser = ( doc ) => {
             <td onclick='abrirEditar2()'>${doc.data().EstadoPedido}</td>
             <td onclick='abrirEditar2()'>${doc.data().Obs}</td>
             <td id='Pre${doc.id}'>
-                <button class="btn btn-delete">Listo</button>
-                <button class="btn btn-delete">Eliminar</button>
+                <button class="btn btn-listo">Listo</button>
             </td>
         </tr>`;
-        tablaPreparar.insertAdjacentHTML("beforeend", trPre);
+    tablaPreparar.insertAdjacentHTML("beforeend", trPre);
 
     // RENDIZAR DATOS DE REGISTRO -> INVENTARIO
     const btnEdit = document.querySelector(`#Inv${doc.id}`);
@@ -140,7 +139,7 @@ const renderUser = ( doc ) => {
     // RENDERIZAR DATOS DE REGISTRO -> PREPARAR
     const btnEdit2 = document.querySelector( `#Pre${doc.id}` );
     btnEdit2.addEventListener("click", () => {
-        // id = doc.id; //Para reconocer el ID que se dio click
+        idPre = doc.id; //Para reconocer el ID que se dio click
         editModalForm2.ViaPedido.value       = doc.data().ViaPedido
         editModalForm2.NroPedido.value       = doc.data().NroPedido
         editModalForm2.Fecha.value           = doc.data().Fecha
@@ -152,36 +151,37 @@ const renderUser = ( doc ) => {
         editModalForm2.Obs.value             = doc.data().Obs
     });
 
-    // BOTON ELIMINAR
+    // BOTON LISTO -> PREPARAR
+    const btnListo = document.querySelector( `#Pre${doc.id} .btn-listo` );
+    btnListo.addEventListener( 'click', () => {
+        db.collection( 'Inventario' ).doc( `${doc.id}` ).update({
+            EstadoPedido: 'REALIZADO'
+        })
+        console.log('<3');
+})
+
+    // BOTON ELIMINAR -> INVENTARIO
     const btnDelete = document.querySelector(`#Inv${doc.id} .btn-delete`);
-    const btnDelete2 = document.querySelector(`#Pre${doc.id} .btn-delete`);
-    console.log(btnDelete);
-    window.addEventListener( 'click', e => {
-        console.log(e.target)
-        if (e.target == btnDelete) {
-            
-        }
-    })
 
     btnDelete.addEventListener("click", () => {
       db.collection("Inventario")
         .doc(`${doc.id}`)
         .delete()
         .then(() => {
-            const modalDelete = document.querySelector( '.delete-modal' )
-            modalDelete.classList.add( 'modal-show' );
+            const modalDelete = document.querySelector( '.delete-modal' );
 
+            modalDelete.classList.add( 'modal-show' );
             window.addEventListener( 'click', e => {
                 if ( e.target === modalDelete) {
                     modalDelete.classList.remove( 'modal-show' );
                 }
-            })
+            });
         })
         .catch((err) => {
           console.log("</3");
         });
     });
-};
+}
 
 // NUEVO REGISTRO
 const addModal = document.querySelector( '.add-modal' );
@@ -203,19 +203,19 @@ window.addEventListener( 'click', e => {
 
 // EDITAR REGISTRO
 
-const editModal = document.querySelector( '.edit-modal' );
+const editModalInv = document.querySelector( '.edit-modal' );
 const editModal2 = document.querySelector( '.edit-modal2' );
 
 const editModalForm = document.querySelector( '.edit-modal .form' ); //Para agregar usuarios
 const editModalForm2 = document.querySelector( '.edit-modal2 .form' ); //Para agregar usuarios
 
-const abrirEditar = () => editModal.classList.add( 'modal-show' );
+const abrirEditar = () => editModalInv.classList.add( 'modal-show' );
 const abrirEditar2 = () => editModal2.classList.add( 'modal-show' );
 
 // QUITAR MODAL EDITAR REGISTRO
 window.addEventListener( 'click', e => {
-    if ( e.target === editModal || e.target === editModal2 ) {
-        editModal.classList.remove( 'modal-show' );
+    if ( e.target === editModalInv || e.target === editModal2 ) {
+        editModalInv.classList.remove( 'modal-show' );
         editModal2.classList.remove( 'modal-show' );
         editModalForm.reset();
     }
@@ -244,7 +244,7 @@ editModalForm.addEventListener( 'submit', e => {
         EstadoPedido:   editModalForm.EstadoPedido.value,
         Obs:            editModalForm.Obs.value,
     });
-    editModal.classList.remove( 'modal-show' );
+    editModalInv.classList.remove( 'modal-show' );
 });
 
 const generateID = id => "Row-" +  Date.now();
@@ -277,24 +277,30 @@ addModalForm.addEventListener( 'submit', e => {
 
 
 // REALTIME LISTENER
-db.collection( 'Inventario' ).onSnapshot( snapshot => {
+db.collection( 'Inventario' ).orderBy('Fecha', 'desc').onSnapshot( snapshot => {
     snapshot.docChanges().forEach( change => {
         if ( change.type === 'added') {
             renderUser( change.doc );
         }
         if ( change.type === 'removed' ) {
             let tr = document.querySelector( `#Inv${change.doc.id}` );
+            let trPre = document.querySelector( `#Pre${change.doc.id}` );
+
             let tbody = tr.parentElement;
+            let tbodyPre = trPre.parentElement;
+
             tablaInventario.removeChild( tbody );
+            tablaPreparar.removeChild( tbodyPre );
         }
         if ( change.type === 'modified' ) {
             let tr = document.querySelector( `#Inv${change.doc.id}` );
-            let tr2 = document.querySelector( `#Pre${change.doc.id}` );
+            let trPre = document.querySelector( `#Pre${change.doc.id}` );
+
             let tbody = tr.parentElement;
-            let tbody2 = tr2.parentElement;
+            let tbodyPre = trPre.parentElement;
+
             tablaInventario.removeChild( tbody );
-            tablaInventario.removeChild( tbody2 );
-            
+            tablaPreparar.removeChild( tbodyPre );
             renderUser( change.doc );
         }
     });
@@ -312,6 +318,8 @@ const tabInventario = document.querySelector( '.inventario' );
 iconoPreparar.addEventListener( 'click', () => {
     tabPreparar.style.display = 'block';
     tabInventario.style.display = 'none';
+    db.collection("Inventario")
+    .where("EstadoPedido", "==", "REALIZAR")
 });
 
 iconoInventario.addEventListener( 'click', () => {
