@@ -95,92 +95,100 @@ const renderUser = ( doc ) => {
 
     tablaInventario.insertAdjacentHTML("beforeend", tr);
 
-    const trPre = `
-        <tr id='Pre${doc.id}'>
-            <td onclick='abrirEditar2()'>${doc.data().ViaPedido}</td>
-            <td onclick='abrirEditar2()'>${doc.data().NroPedido}</td>
-            <td onclick='abrirEditar2()'>${doc.data().Fecha}</td>
-            <td onclick='abrirEditar2()'>${doc.data().Nombre}</td>
-            <td onclick='abrirEditar2()'>${doc.data().Producto}</td>
-            <td onclick='abrirEditar2()'>${doc.data().ModoEntrega}</td>
-            <td onclick='abrirEditar2()'>${doc.data().Sticker}</td>
-            <td onclick='abrirEditar2()'>${doc.data().EstadoPedido}</td>
-            <td onclick='abrirEditar2()'>${doc.data().Obs}</td>
-            <td id='Pre${doc.id}'>
-                <button class="btn btn-listo">Listo</button>
-            </td>
-        </tr>`;
-    tablaPreparar.insertAdjacentHTML("beforeend", trPre);
-
-    // RENDIZAR DATOS DE REGISTRO -> INVENTARIO
-    const btnEdit = document.querySelector(`#Inv${doc.id}`);
-    btnEdit.addEventListener("click", () => {
-        id = doc.id; //Para reconocer el ID que se dio click
-        editModalForm.ViaPedido.value       = doc.data().ViaPedido
-        editModalForm.NroPedido.value       = doc.data().NroPedido
-        editModalForm.Fecha.value           = doc.data().Fecha
-        editModalForm.Nombre.value          = doc.data().Nombre
-        editModalForm.Celular.value         = doc.data().Celular
-        editModalForm.Direccion.value       = doc.data().Direccion
-        editModalForm.Ciudad.value          = doc.data().Ciudad
-        editModalForm.Correo.value          = doc.data().Correo
-        editModalForm.Producto.value        = doc.data().Producto
-        editModalForm.Precio.value          = doc.data().Precio
-        editModalForm.ModoEntrega.value     = doc.data().ModoEntrega
-        editModalForm.PrecioDelivery.value  = doc.data().PrecioDelivery
-        editModalForm.ModoPago.value        = doc.data().ModoPago
-        editModalForm.EstadoPago.value      = doc.data().EstadoPago
-        editModalForm.Comprobante.value     = doc.data().Comprobante
-        editModalForm.Sticker.value         = doc.data().Sticker
-        editModalForm.EstadoPedido.value    = doc.data().EstadoPedido
-        editModalForm.Obs.value             = doc.data().Obs
-    });
-
-    // RENDERIZAR DATOS DE REGISTRO -> PREPARAR
-    const btnEdit2 = document.querySelector( `#Pre${doc.id}` );
-    btnEdit2.addEventListener("click", () => {
-        idPre = doc.id; //Para reconocer el ID que se dio click
-        editModalForm2.ViaPedido.value       = doc.data().ViaPedido
-        editModalForm2.NroPedido.value       = doc.data().NroPedido
-        editModalForm2.Fecha.value           = doc.data().Fecha
-        editModalForm2.Nombre.value          = doc.data().Nombre
-        editModalForm2.Producto.value        = doc.data().Producto
-        editModalForm2.ModoEntrega.value     = doc.data().ModoEntrega
-        editModalForm2.Sticker.value         = doc.data().Sticker
-        editModalForm2.EstadoPedido.value    = doc.data().EstadoPedido
-        editModalForm2.Obs.value             = doc.data().Obs
-    });
-
-    // BOTON LISTO -> PREPARAR
-    const btnListo = document.querySelector( `#Pre${doc.id} .btn-listo` );
-    btnListo.addEventListener( 'click', () => {
-        db.collection( 'Inventario' ).doc( `${doc.id}` ).update({
-            EstadoPedido: 'REALIZADO'
-        })
-        console.log('<3');
-})
-
-    // BOTON ELIMINAR -> INVENTARIO
-    const btnDelete = document.querySelector(`#Inv${doc.id} .btn-delete`);
-
-    btnDelete.addEventListener("click", () => {
-      db.collection("Inventario")
-        .doc(`${doc.id}`)
-        .delete()
-        .then(() => {
-            const modalDelete = document.querySelector( '.delete-modal' );
-
-            modalDelete.classList.add( 'modal-show' );
-            window.addEventListener( 'click', e => {
-                if ( e.target === modalDelete) {
-                    modalDelete.classList.remove( 'modal-show' );
-                }
-            });
-        })
-        .catch((err) => {
-          console.log("</3");
+        // RENDIZAR DATOS DE REGISTRO -> INVENTARIO
+        const btnEdit = document.querySelector(`#Inv${doc.id}`);
+        btnEdit.addEventListener("click", () => {
+            id = doc.id; //Para reconocer el ID que se dio click
+            editModalForm.ViaPedido.value       = doc.data().ViaPedido
+            editModalForm.NroPedido.value       = doc.data().NroPedido
+            editModalForm.Fecha.value           = doc.data().Fecha
+            editModalForm.Nombre.value          = doc.data().Nombre
+            editModalForm.Celular.value         = doc.data().Celular
+            editModalForm.Direccion.value       = doc.data().Direccion
+            editModalForm.Ciudad.value          = doc.data().Ciudad
+            editModalForm.Correo.value          = doc.data().Correo
+            editModalForm.Producto.value        = doc.data().Producto
+            editModalForm.Precio.value          = doc.data().Precio
+            editModalForm.ModoEntrega.value     = doc.data().ModoEntrega
+            editModalForm.PrecioDelivery.value  = doc.data().PrecioDelivery
+            editModalForm.ModoPago.value        = doc.data().ModoPago
+            editModalForm.EstadoPago.value      = doc.data().EstadoPago
+            editModalForm.Comprobante.value     = doc.data().Comprobante
+            editModalForm.Sticker.value         = doc.data().Sticker
+            editModalForm.EstadoPedido.value    = doc.data().EstadoPedido
+            editModalForm.Obs.value             = doc.data().Obs
         });
-    });
+    
+        // BOTON ELIMINAR -> INVENTARIO
+        const btnDelete = document.querySelector(`#Inv${doc.id} .btn-delete`);
+    
+        btnDelete.addEventListener("click", () => {
+          db.collection("Inventario")
+            .doc(`${doc.id}`)
+            .delete()
+            .then(() => {
+                const modalDelete = document.querySelector( '.delete-modal' );
+    
+                modalDelete.classList.add( 'modal-show' );
+                window.addEventListener( 'click', e => {
+                    if ( e.target === modalDelete) {
+                        modalDelete.classList.remove( 'modal-show' );
+                    }
+                });
+            })
+            .catch((err) => {
+              console.log("</3");
+            });
+        });
+    
+    if ( doc.data().EstadoPedido == 'REALIZAR' ) {
+        
+        const trPre = `
+            <tr id='Pre${doc.id}'>
+                <td onclick='abrirEditar2()'>${doc.data().ViaPedido}</td>
+                <td onclick='abrirEditar2()'>${doc.data().NroPedido}</td>
+                <td onclick='abrirEditar2()'>${doc.data().Fecha}</td>
+                <td onclick='abrirEditar2()'>${doc.data().Nombre}</td>
+                <td onclick='abrirEditar2()'>${doc.data().Producto}</td>
+                <td onclick='abrirEditar2()'>${doc.data().ModoEntrega}</td>
+                <td onclick='abrirEditar2()'>${doc.data().Sticker}</td>
+                <td onclick='abrirEditar2()'>${doc.data().EstadoPedido}</td>
+                <td onclick='abrirEditar2()'>${doc.data().Obs}</td>
+                <td id='Pre${doc.id}'>
+                    <button class="btn btn-listo">Listo</button>
+                </td>
+            </tr>`;
+        tablaPreparar.insertAdjacentHTML("beforeend", trPre);
+
+        // RENDERIZAR DATOS DE REGISTRO -> PREPARAR
+        const btnEdit2 = document.querySelector( `#Pre${doc.id}` );
+        btnEdit2.addEventListener("click", () => {
+            idPre = doc.id; //Para reconocer el ID que se dio click
+            editModalForm2.ViaPedido.value       = doc.data().ViaPedido
+            editModalForm2.NroPedido.value       = doc.data().NroPedido
+            editModalForm2.Fecha.value           = doc.data().Fecha
+            editModalForm2.Nombre.value          = doc.data().Nombre
+            editModalForm2.Producto.value        = doc.data().Producto
+            editModalForm2.ModoEntrega.value     = doc.data().ModoEntrega
+            editModalForm2.Sticker.value         = doc.data().Sticker
+            editModalForm2.EstadoPedido.value    = doc.data().EstadoPedido
+            editModalForm2.Obs.value             = doc.data().Obs
+        });
+
+        // BOTON LISTO -> PREPARAR
+        const btnListo = document.querySelector( `#Pre${doc.id} .btn-listo` );
+        const btnListoId = document.querySelector( `#Pre${doc.id}` );
+        const parent = btnListoId.parentElement;
+
+        btnListo.addEventListener( 'click', () => {
+            db.collection( 'Inventario' ).doc( `${doc.id}` ).update({
+                EstadoPedido: 'REALIZADO'
+            })
+            console.log('<3');
+        });
+    };
+
+
 }
 
 // NUEVO REGISTRO
@@ -271,36 +279,36 @@ addModalForm.addEventListener( 'submit', e => {
         Sticker:        addModalForm.Sticker.value,
         EstadoPedido:   addModalForm.EstadoPedido.value,
         Obs:            addModalForm.Obs.value,
-    } );
+    });
     modalWrapper.classList.remove( 'modal-show' );
 })
 
 
 // REALTIME LISTENER
-db.collection( 'Inventario' ).orderBy('Fecha', 'desc').onSnapshot( snapshot => {
+let observer = db.collection( 'Inventario' ).orderBy('Fecha', 'desc').onSnapshot( snapshot => {
     snapshot.docChanges().forEach( change => {
         if ( change.type === 'added') {
             renderUser( change.doc );
         }
         if ( change.type === 'removed' ) {
             let tr = document.querySelector( `#Inv${change.doc.id}` );
-            let trPre = document.querySelector( `#Pre${change.doc.id}` );
 
             let tbody = tr.parentElement;
-            let tbodyPre = trPre.parentElement;
 
             tablaInventario.removeChild( tbody );
-            tablaPreparar.removeChild( tbodyPre );
         }
         if ( change.type === 'modified' ) {
             let tr = document.querySelector( `#Inv${change.doc.id}` );
-            let trPre = document.querySelector( `#Pre${change.doc.id}` );
+            let trPre = document.querySelector( `#Pre${change.doc.id}` ).parentElement;
 
-            let tbody = tr.parentElement;
-            let tbodyPre = trPre.parentElement;
+            console.log(trPre);
+            //let tbody = tr.parentElement;
+            //let tbodyPre = trPre.parentElement;
 
-            tablaInventario.removeChild( tbody );
-            tablaPreparar.removeChild( tbodyPre );
+            //console.log(tbodyPre);
+
+            tablaInventario.remove( trPre );
+            //tablaPreparar.removeChild( tbodyPre );
             renderUser( change.doc );
         }
     });
@@ -318,8 +326,9 @@ const tabInventario = document.querySelector( '.inventario' );
 iconoPreparar.addEventListener( 'click', () => {
     tabPreparar.style.display = 'block';
     tabInventario.style.display = 'none';
-    db.collection("Inventario")
-    .where("EstadoPedido", "==", "REALIZAR")
+    let observerPreparar = db.collection("Inventario").where("EstadoPedido", "==", "REALIZADO").get();
+    
+    
 });
 
 iconoInventario.addEventListener( 'click', () => {
