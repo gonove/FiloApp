@@ -183,8 +183,7 @@ const renderUser = ( doc ) => {
             db.collection( 'Inventario' ).doc( `${doc.id}` ).update({
                 EstadoPedido: 'REALIZADO'
             })
-            
-            
+            let trPre = document.querySelector( `#Pre${doc.id}` ).style.display = 'none'; //Para ocultar la fila en vez de borrar
         });
     };
 
@@ -298,8 +297,6 @@ let observer = db.collection( 'Inventario' ).orderBy('Fecha', 'desc').onSnapshot
         }
         if ( change.type === 'modified' ) {
             let tr = document.querySelector( `#Inv${change.doc.id}` );
-            let trPre = document.querySelector( `#Pre${change.doc.id}` ).style.display = 'none'; //Para ocultar la fila en vez de borrar
-
             let tbody = tr.parentElement;
 
             tablaInventario.removeChild( tbody );
