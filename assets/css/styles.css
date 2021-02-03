@@ -239,8 +239,8 @@ tr:hover {
   cursor: pointer;
 }
 th {
-  background: #952860;
-  color: rgb(245, 235, 235);
+  background: #ED9099;
+  color:#fff;
 }
 
 /* BOTONES NUEVOS REGISTROS Y BUSCADOR*/
@@ -271,9 +271,11 @@ box-shadow: 0px 0px 10px 0px rgba(149,40,96,1);
 
 .btn-add {
   border: none;
+  font-family: var(--body-font) ;
+  font-weight:600;
 }
 
-.btn-guardar, .btn-delete, .btn-modal, .btn-listo {
+.btn-guardar, .btn-delete, .btn-modal, .btn-listo, .btn-enviado {
   background: #952860;
   border: none;
   color: #fff;
