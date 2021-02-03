@@ -36,7 +36,7 @@
                         <i class='bx bx-send nav__icon'></i>
                         <span class="nav__text">Preparar</span>
                     </a>
-                    <a href="#" class="nav__link">
+                    <a href="#" class="nav__link" id="icon-delivery">
                         <i class='bx bxs-dashboard nav__icon'></i>
                         <span class="nav__text">Delivery</span>
                     </a>
@@ -220,6 +220,55 @@
                     <th scope="col">Estado Pedido</th>
                     <th scope="col">Obs</th>
                     <th scope="col">Acciones</th>
+                </tr>
+
+            </table>
+        </div>
+
+        <!-- Edit Modal -->
+        <div class="edit-modal2 modal-wrapper">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Visualizar registro</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="form">
+                        <input type="text" name="ViaPedido" placeholder="Via pedido">
+                        <input type="text" name="NroPedido" placeholder="Numero pedido">
+                        <input type="date" name="Fecha" placeholder="Fecha">
+                        <input type="text" name="Nombre" placeholder="Nombre">
+                        <input type="text" name="Producto" placeholder="Producto">
+                        <input type="text" name="ModoEntrega" placeholder="Metodo Entrega">
+                        <input type="text" name="Sticker" placeholder="Sticker">
+                        <input type="text" name="EstadoPedido" placeholder="Estado Pedido">
+                        <input type="text" name="Obs" placeholder="Observacion">
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Delivery -->
+    <div id="container" class="delivery">
+        <header>
+            <h1>Delivery</h1>
+        </header>
+        <div class="tabla">
+            <table class="table" id="tablaDelivery">
+                <tr id="col">
+                    <th scope="col">Nro. Pedido</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Ciudad</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Estado Pago</th>
+                    <th scope="col">Obs</th>
+                    <th scope="col">Estado Pedido</th>
+                    <th scope="col">Marcar como:</th>
                 </tr>
 
             </table>

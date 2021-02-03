@@ -53,6 +53,7 @@ function animacion(){
 }
 
 hoverIcon.forEach( l => l.addEventListener('click', animacion));
+
 // FIN PARTE GRAFICA
 
 
@@ -64,6 +65,7 @@ const modalWrapper = document.querySelector( '.modal-wrapper' );
 // RENDERIZAR REGISTROS DE FIREBASE
 const tablaInventario = document.querySelector( '#tablaInventario' );
 const tablaPreparar = document.querySelector( '#tablaPreparar' );
+const tablaDelivery = document.querySelector( '#tablaDelivery' );
 
 const renderUser = ( doc ) => {
     
@@ -187,12 +189,51 @@ const renderUser = ( doc ) => {
         });
     };
 
+    // DELIVERY
+
+    if ( doc.data().EstadoPedido == 'REALIZADO' ) {
+        
+        const trDel = `
+        <tr id='Del${doc.id}'>
+            <td>${doc.data().NroPedido}</td>
+            <td>${doc.data().Fecha}</td>
+            <td>${doc.data().Nombre}</td>
+            <td>${doc.data().Celular}</td>
+            <td>${doc.data().Direccion}</td>
+            <td>${doc.data().Ciudad}</td>
+            <td>${doc.data().Producto}</td>
+            <td>${ total }</td>
+            <td>${doc.data().EstadoPago}</td>
+            <td>${doc.data().Obs}</td>
+            <td>${doc.data().EstadoPedido}</td>
+            <td id='Del${doc.id}'>
+                <button class="btn btn-enviado">Enviado</button>
+            </td>
+        </tr>`;
+        tablaDelivery.insertAdjacentHTML("beforeend", trDel);
+
+    
+        // BOTON ENVIADO -> DELIVERY
+        
+        const btnEnviado =  document.querySelector( `#Del${doc.id} .btn-enviado` );
+        
+        btnEnviado.addEventListener( 'click', () => {
+            db.collection( 'Inventario' ).doc( `${doc.id}` ).update({
+                EstadoPedido: 'ENVIADO'
+            });
+            
+            const changeEstado = document.querySelector( `#Del${doc.id}` ).lastElementChild.previousElementSibling.textContent = 'ENVIADO';
+            console.log(changeEstado);
+            
+        });
+    
+    };
 }
 
 // NUEVO REGISTRO
-const addModal = document.querySelector( '.add-modal' );
-const addModalForm = document.querySelector( '.add-modal .form')
-const btnAdd = document.querySelector( '.btn-add' );
+const addModal      = document.querySelector( '.add-modal' );
+const addModalForm  = document.querySelector( '.add-modal .form')
+const btnAdd        = document.querySelector( '.btn-add' );
 
 // CLICK NUEVO REGISTRO
 btnAdd.addEventListener( 'click', () => {
@@ -309,19 +350,30 @@ let observer = db.collection( 'Inventario' ).orderBy('Fecha', 'desc').onSnapshot
 
 const iconoInventario = document.querySelector( '#icon-inventario' );
 const iconoPreparar = document.querySelector( '#icon-preparar' );
+const iconoDelivery = document.querySelector( '#icon-delivery' );
 
 
 const tabPreparar = document.querySelector( '.preparar' );
 const tabInventario = document.querySelector( '.inventario' );
+const tabDelivery = document.querySelector( '.delivery' );
 
 iconoPreparar.addEventListener( 'click', () => {
     tabPreparar.style.display = 'block';
     tabInventario.style.display = 'none';
+    tabDelivery.style.display = 'none';
     
 });
 
 iconoInventario.addEventListener( 'click', () => {
     tabInventario.style.display = 'block';
     tabPreparar.style.display = 'none';
+    tabDelivery.style.display = 'none';
 
-} )
+});
+
+iconoDelivery.addEventListener( 'click', () => {
+    tabDelivery.style.display = 'block';
+    tabInventario.style.display = 'none';
+    tabPreparar.style.display = 'none';
+
+});
