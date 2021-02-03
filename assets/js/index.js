@@ -309,19 +309,30 @@ let observer = db.collection( 'Inventario' ).orderBy('Fecha', 'desc').onSnapshot
 
 const iconoInventario = document.querySelector( '#icon-inventario' );
 const iconoPreparar = document.querySelector( '#icon-preparar' );
+const iconoDelivery = document.querySelector( '#icon-delivery' );
 
 
 const tabPreparar = document.querySelector( '.preparar' );
 const tabInventario = document.querySelector( '.inventario' );
+const tabDelivery = document.querySelector( '.delivery' );
 
 iconoPreparar.addEventListener( 'click', () => {
     tabPreparar.style.display = 'block';
     tabInventario.style.display = 'none';
+    tabDelivery.style.display = 'none';
     
 });
 
 iconoInventario.addEventListener( 'click', () => {
     tabInventario.style.display = 'block';
     tabPreparar.style.display = 'none';
+    tabDelivery.style.display = 'none';
 
-} )
+});
+
+iconoDelivery.addEventListener( 'click', () => {
+    tabDelivery.style.display = 'block';
+    tabInventario.style.display = 'none';
+    tabPreparar.style.display = 'none';
+
+});
