@@ -223,7 +223,6 @@ const renderUser = ( doc ) => {
             });
             
             const changeEstado = document.querySelector( `#Del${doc.id}` ).lastElementChild.previousElementSibling.textContent = 'ENVIADO';
-            console.log(changeEstado);
             
         });
     
