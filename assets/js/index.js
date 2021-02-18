@@ -291,6 +291,15 @@ editModalForm.addEventListener( 'submit', e => {
         Obs:            editModalForm.Obs.value,
     });
     editModalInv.classList.remove( 'modal-show' );
+
+    const modalSuccess = document.querySelector( '.success-modal' );
+    modalSuccess.classList.add( 'modal-show' );
+    window.addEventListener( 'click', e => {
+        if ( e.target === modalSuccess) {
+            modalSuccess.classList.remove( 'modal-show' );
+        }
+    });
+    
 });
 
 const generateID = id => "Row-" +  Date.now();
@@ -319,6 +328,16 @@ addModalForm.addEventListener( 'submit', e => {
         Obs:            addModalForm.Obs.value,
     });
     modalWrapper.classList.remove( 'modal-show' );
+
+    const agregarModal = document.querySelector( '.agregado-modal' );
+
+    agregarModal.classList.add( 'modal-show' );
+    window.addEventListener( 'click', e => {
+        if ( e.target === agregarModal) {
+            agregarModal.classList.remove( 'modal-show' );
+        }
+    });
+
 })
 
 
